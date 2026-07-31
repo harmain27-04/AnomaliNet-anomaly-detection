@@ -1,0 +1,829 @@
+/*=========================================================
+                ANOMALINET LOGIN PAGE
+                    PART 1
+=========================================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Inter',sans-serif;
+
+}
+
+body{
+
+    background:#F6F9FC;
+
+    overflow-x:hidden;
+
+}
+
+/*=========================================================
+                    PAGE LAYOUT
+=========================================================*/
+
+.login-page{
+
+    min-height:100vh;
+
+}
+
+/*=========================================================
+                    LEFT PANEL
+=========================================================*/
+
+.left-panel{
+
+    background:linear-gradient(
+        135deg,
+        #B8F2E6,
+        #CDB4DB
+    );
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.left-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    background:rgba(255,255,255,.20);
+
+    border-radius:50%;
+
+    top:-120px;
+
+    right:-120px;
+
+}
+
+.left-panel::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+
+    height:280px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:50%;
+
+    bottom:-80px;
+
+    left:-80px;
+
+}
+
+.overlay{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    color:#374151;
+
+    padding:60px;
+
+}
+
+.brand i{
+
+    font-size:75px;
+
+    margin-bottom:20px;
+
+    color:#4F46E5;
+
+}
+
+.brand h1{
+
+    font-size:52px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+.brand p{
+
+    font-size:20px;
+
+    color:#374151;
+
+}
+
+/*=========================================================
+                    FEATURES
+=========================================================*/
+
+.features{
+
+    margin-top:55px;
+
+}
+
+.feature{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    background:rgba(255,255,255,.35);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:18px;
+
+    padding:18px 22px;
+
+    margin-bottom:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+}
+
+.feature:hover{
+
+    transform:translateX(8px);
+
+}
+
+.feature i{
+
+    width:45px;
+
+    font-size:24px;
+
+    color:#4F46E5;
+
+}
+
+.feature span{
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+/*=========================================================
+                    RIGHT PANEL
+=========================================================*/
+
+.right-panel{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#F8FAFC;
+
+    padding:40px;
+
+}
+
+/*=========================================================
+                    LOGIN CARD
+=========================================================*/
+
+.login-card{
+
+    width:100%;
+
+    max-width:520px;
+
+    background:rgba(255,255,255,.90);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:0 18px 45px rgba(0,0,0,.08);
+
+}
+
+.login-card h2{
+
+    text-align:center;
+
+    font-size:36px;
+
+    font-weight:700;
+
+    color:#374151;
+
+}
+
+.login-card p{
+
+    text-align:center;
+
+    color:#6B7280;
+
+    margin-top:8px;
+
+    margin-bottom:35px;
+
+}
+
+/*=========================================================
+                    FLASH MESSAGE
+=========================================================*/
+
+.alert{
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:14px;
+
+    margin-bottom:25px;
+
+    font-weight:600;
+
+}
+
+/*=========================================================
+                    LABELS
+=========================================================*/
+
+label{
+
+    font-weight:600;
+
+    color:#374151;
+
+    margin-bottom:8px;
+
+}
+
+/*=========================================================
+                    INPUT GROUP
+=========================================================*/
+
+.input-group{
+
+    margin-top:8px;
+
+}
+
+.input-group-text{
+
+    background:#EEF9F7;
+
+    border:none;
+
+    color:#4F46E5;
+
+}
+
+.form-control{
+
+    border:none;
+
+    height:56px;
+
+    background:#F7FAFC;
+
+    box-shadow:none;
+
+}
+
+.form-control:focus{
+
+    box-shadow:0 0 0 .2rem rgba(184,242,230,.40);
+
+}
+
+/*=========================================================
+                    PASSWORD BUTTON
+=========================================================*/
+
+.eye-btn{
+
+    background:#EEF9F7;
+
+    border:none;
+
+    color:#4F46E5;
+
+}
+
+.eye-btn:hover{
+
+    background:#DDF8F2;
+
+}
+
+/*=========================================================
+                    REMEMBER ME
+=========================================================*/
+
+.form-check-input:checked{
+
+    background:#4F46E5;
+
+    border-color:#4F46E5;
+
+}
+
+.form-check-label{
+
+    font-size:15px;
+
+    color:#6B7280;
+
+}
+
+.forgot-link{
+
+    text-decoration:none;
+
+    color:#4F46E5;
+
+    font-weight:600;
+
+}
+
+.forgot-link:hover{
+
+    text-decoration:underline;
+
+}
+
+/*=========================================================
+                    LOGIN BUTTON
+=========================================================*/
+
+.login-btn{
+
+    background:linear-gradient(
+        135deg,
+        #8FD3C8,
+        #A8D8EA
+    );
+
+    color:white;
+
+    border:none;
+
+    border-radius:16px;
+
+    padding:15px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-4px);
+
+    color:white;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+
+}
+
+.login-btn i{
+
+    margin-right:10px;
+
+}
+/*=========================================================
+                ANOMALINET LOGIN PAGE
+                    PART 2
+=========================================================*/
+
+
+/*=========================================================
+                REGISTER LINK
+=========================================================*/
+
+.register-link{
+
+    text-align:center;
+
+    margin-top:28px;
+
+    color:#6B7280;
+
+    font-size:16px;
+
+}
+
+.register-link a{
+
+    text-decoration:none;
+
+    color:#4F46E5;
+
+    font-weight:700;
+
+    margin-left:5px;
+
+}
+
+.register-link a:hover{
+
+    text-decoration:underline;
+
+}
+
+
+/*=========================================================
+                SECURITY BOX
+=========================================================*/
+
+.security-box{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+.security-item{
+
+    flex:1;
+
+    min-width:120px;
+
+    background:#F8FAFC;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+    transition:.35s;
+
+}
+
+.security-item:hover{
+
+    transform:translateY(-6px);
+
+    background:#EEFDF8;
+
+}
+
+.security-item i{
+
+    font-size:28px;
+
+    color:#4F46E5;
+
+    margin-bottom:12px;
+
+}
+
+.security-item span{
+
+    display:block;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+
+/*=========================================================
+                    FOOTER
+=========================================================*/
+
+.footer{
+
+    background:#F6F9FC;
+
+    text-align:center;
+
+    padding:25px;
+
+    color:#6B7280;
+
+    font-size:14px;
+
+}
+
+.footer p{
+
+    margin:4px 0;
+
+}
+
+
+/*=========================================================
+                    ANIMATIONS
+=========================================================*/
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.left-panel{
+
+    animation:fadeUp .5s ease;
+
+}
+
+.login-card{
+
+    animation:fadeUp .8s ease;
+
+}
+
+.feature{
+
+    animation:fadeUp 1s ease;
+
+}
+
+.security-item{
+
+    animation:fadeUp 1.2s ease;
+
+}
+
+
+/*=========================================================
+                    HOVER EFFECTS
+=========================================================*/
+
+.brand i{
+
+    transition:.4s;
+
+}
+
+.brand:hover i{
+
+    transform:rotate(-10deg) scale(1.08);
+
+}
+
+.feature:hover i{
+
+    transform:scale(1.15);
+
+    transition:.35s;
+
+}
+
+.security-item:hover i{
+
+    transform:scale(1.15);
+
+    transition:.35s;
+
+}
+
+
+/*=========================================================
+                    SCROLLBAR
+=========================================================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#EEF2F7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#B8F2E6;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#8FD3C8;
+
+}
+
+
+/*=========================================================
+                    RESPONSIVE
+=========================================================*/
+
+@media(max-width:992px){
+
+    .left-panel{
+
+        min-height:350px;
+
+    }
+
+    .overlay{
+
+        padding:40px;
+
+    }
+
+    .brand h1{
+
+        font-size:40px;
+
+    }
+
+    .brand p{
+
+        font-size:18px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .login-card{
+
+        padding:30px;
+
+    }
+
+    .brand h1{
+
+        font-size:34px;
+
+    }
+
+    .feature{
+
+        padding:15px;
+
+    }
+
+    .feature span{
+
+        font-size:15px;
+
+    }
+
+    .security-box{
+
+        flex-direction:column;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .left-panel{
+
+        min-height:280px;
+
+    }
+
+    .overlay{
+
+        padding:25px;
+
+    }
+
+    .brand i{
+
+        font-size:55px;
+
+    }
+
+    .brand h1{
+
+        font-size:28px;
+
+    }
+
+    .brand p{
+
+        font-size:15px;
+
+    }
+
+    .login-card{
+
+        padding:22px;
+
+        border-radius:20px;
+
+    }
+
+    .login-card h2{
+
+        font-size:28px;
+
+    }
+
+    .login-btn{
+
+        font-size:16px;
+
+    }
+
+}
+
+
+/*=========================================================
+                PREMIUM GLASS EFFECT
+=========================================================*/
+
+.login-card{
+
+    border:1px solid rgba(255,255,255,.35);
+
+}
+
+.feature{
+
+    border:1px solid rgba(255,255,255,.30);
+
+}
+
+.security-item{
+
+    border:1px solid rgba(255,255,255,.30);
+
+}
+
+
+/*=========================================================
+                        END
+=========================================================*/

@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Upload Video
+
+</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link
+rel="stylesheet"
+href="{{ url_for('static', filename='css/upload.css') }}">
+
+</head>
+
+<body>
+
+<!-- ===========================
+NAVBAR
+============================ -->
+
+<nav class="navbar">
+
+<div class="container-fluid">
+
+<div class="logo">
+
+<i class="fa-solid fa-video"></i>
+
+<span>
+
+AnomaliNet
+
+</span>
+
+</div>
+
+<div>
+
+<a
+href="{{ url_for('dashboard') }}"
+class="btn btn-dashboard">
+
+Dashboard
+
+</a>
+
+<a
+href="{{ url_for('history') }}"
+class="btn btn-history">
+
+History
+
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- ===========================
+HEADER
+============================ -->
+
+<div class="container">
+
+<div class="header-card">
+
+<h1>
+
+Upload Surveillance Video
+
+</h1>
+
+<p>
+
+Upload CCTV footage for AI-powered anomaly detection.
+
+</p>
+
+</div>
+
+<!-- ===========================
+UPLOAD CARD
+============================ -->
+
+<div class="upload-card">
+
+<form
+
+action="{{ url_for('upload') }}"
+
+method="POST"
+
+enctype="multipart/form-data">
+
+<div
+
+class="upload-area"
+
+id="dropArea">
+
+<i
+class="fa-solid fa-cloud-arrow-up">
+
+</i>
+
+<h3>
+
+Drag & Drop Video Here
+
+</h3>
+
+<p>
+
+or
+
+</p>
+
+<label
+class="choose-btn">
+
+Choose Video
+
+<input
+
+type="file"
+
+name="video"
+
+id="videoInput"
+
+accept=".mp4,.avi,.mov,.mkv"
+
+hidden>
+
+</label>
+
+<p
+
+id="fileName">
+
+No file selected
+
+</p>
+
+</div>
+
+<!-- Progress -->
+
+<div
+
+class="progress mt-4">
+
+<div
+
+id="progressBar"
+
+class="progress-bar progress-bar-striped progress-bar-animated"
+
+style="width:0%;">
+
+0%
+
+</div>
+
+</div>
+
+<div
+class="text-center mt-4">
+
+<button
+
+type="submit"
+
+class="btn upload-btn">
+
+<i class="fa-solid fa-upload"></i>
+
+Upload & Detect
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- ===========================
+AI PIPELINE
+============================ -->
+
+<div class="pipeline-card">
+
+<h2>
+
+AI Detection Pipeline
+
+</h2>
+
+<div class="pipeline">
+
+<div class="step">
+
+<div class="circle">
+
+<i class="fa-solid fa-video">
+
+</i>
+
+</div>
+
+<h5>
+
+Video Input
+
+</h5>
+
+</div>
+
+<div class="arrow">
+
+<i class="fa-solid fa-arrow-right">
+
+</i>
+
+</div>
+
+<div class="step">
+
+<div class="circle">
+
+<i class="fa-solid fa-user">
+
+</i>
+
+</div>
+
+<h5>
+
+YOLOv8
+
+</h5>
+
+</div>
+
+<div class="arrow">
+
+<i class="fa-solid fa-arrow-right">
+
+</i>
+
+</div>
+
+<div class="step">
+
+<div class="circle">
+
+<i class="fa-solid fa-brain">
+
+</i>
+
+</div>
+
+<h5>
+
+ResNet50
+
+</h5>
+
+</div>
+
+<div class="arrow">
+
+<i class="fa-solid fa-arrow-right">
+
+</i>
+
+</div>
+
+<div class="step">
+
+<div class="circle">
+
+<i class="fa-solid fa-wave-square">
+
+</i>
+
+</div>
+
+<h5>
+
+LSTM
+
+</h5>
+
+</div>
+
+<div class="arrow">
+
+<i class="fa-solid fa-arrow-right">
+
+</i>
+
+</div>
+
+<div class="step">
+
+<div class="circle">
+
+<i class="fa-solid fa-triangle-exclamation">
+
+</i>
+
+</div>
+
+<h5>
+
+Autoencoder
+
+</h5>
+
+</div>
+
+<div class="arrow">
+
+<i class="fa-solid fa-arrow-right">
+
+</i>
+
+</div>
+
+<div class="step">
+
+<div class="circle">
+
+<i class="fa-solid fa-bell">
+
+</i>
+
+</div>
+
+<h5>
+
+Alarm
+
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===========================
+SYSTEM FEATURES
+============================ -->
+
+<div class="row mt-5">
+
+<div class="col-lg-4">
+
+<div class="feature-card">
+
+<i class="fa-solid fa-clock">
+
+</i>
+
+<h4>
+
+Real-Time Detection
+
+</h4>
+
+<p>
+
+Processes uploaded surveillance videos using AI models.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="feature-card">
+
+<i class="fa-solid fa-camera">
+
+</i>
+
+<h4>
+
+Snapshot Capture
+
+</h4>
+
+<p>
+
+Automatically stores anomaly evidence with timestamps.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="feature-card">
+
+<i class="fa-solid fa-bell">
+
+</i>
+
+<h4>
+
+Instant Alert
+
+</h4>
+
+<p>
+
+Loud alarm with email and Telegram notifications.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+<!-- ===========================
+DETECTION WORKFLOW
+============================ -->
+
+<div class="workflow-card mt-5">
+
+    <h2>
+
+        Detection Workflow
+
+    </h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+
+            <div class="timeline-icon">
+
+                <i class="fa-solid fa-upload"></i>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h5>Step 1 : Video Upload</h5>
+
+                <p>User uploads surveillance video.</p>
+
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-icon">
+
+                <i class="fa-solid fa-video"></i>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h5>Step 2 : Frame Extraction</h5>
+
+                <p>OpenCV extracts frames from the uploaded video.</p>
+
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-icon">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h5>Step 3 : Person Detection</h5>
+
+                <p>YOLOv8 detects people and suspicious objects.</p>
+
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-icon">
+
+                <i class="fa-solid fa-brain"></i>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h5>Step 4 : Feature Extraction</h5>
+
+                <p>ResNet50 extracts deep visual features.</p>
+
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-icon">
+
+                <i class="fa-solid fa-wave-square"></i>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h5>Step 5 : Temporal Analysis</h5>
+
+                <p>LSTM learns motion patterns across frames.</p>
+
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h5>Step 6 : Anomaly Detection</h5>
+
+                <p>Spatio-Temporal Autoencoder classifies abnormal activities.</p>
+
+            </div>
+
+        </div>
+
+        <div class="timeline-item">
+
+            <div class="timeline-icon">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h5>Step 7 : Alert Generation</h5>
+
+                <p>Alarm, snapshot capture and database logging.</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+SUPPORTED FORMATS
+============================ -->
+
+<div class="glass-card mt-5">
+
+    <h2>
+
+        Supported Video Formats
+
+    </h2>
+
+    <div class="row mt-4">
+
+        <div class="col-md-3">
+
+            <div class="format-box">
+
+                MP4
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="format-box">
+
+                AVI
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="format-box">
+
+                MOV
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="format-box">
+
+                MKV
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+PROJECT INFORMATION
+============================ -->
+
+<div class="glass-card mt-5">
+
+    <h2>
+
+        About AnomaliNet
+
+    </h2>
+
+    <hr>
+
+    <p>
+
+        AnomaliNet is an AI-powered intelligent surveillance system developed to detect abnormal human activities in CCTV videos.
+
+    </p>
+
+    <p>
+
+        The system combines YOLOv8, ResNet50, LSTM and a Spatio-Temporal Autoencoder to recognize anomalies in real time.
+
+    </p>
+
+    <p>
+
+        Whenever suspicious activity is detected, the system automatically captures snapshots, stores evidence in the database and triggers alerts.
+
+    </p>
+
+</div>
+
+<!-- ===========================
+FOOTER
+============================ -->
+
+<footer class="footer mt-5">
+
+    <hr>
+
+    <p>
+
+        © 2026 AnomaliNet
+
+    </p>
+
+    <p>
+
+        AI Powered Real-Time Anomaly Detection in Surveillance Videos
+
+    </p>
+
+</footer>
+
+</div>
+
+<!-- ===========================
+JAVASCRIPT
+============================ -->
+
+<script>
+
+const input=document.getElementById("videoInput");
+
+const fileName=document.getElementById("fileName");
+
+const progress=document.getElementById("progressBar");
+
+const dropArea=document.getElementById("dropArea");
+
+input.addEventListener("change",function(){
+
+    if(this.files.length>0){
+
+        fileName.innerHTML=this.files[0].name;
+
+        let value=0;
+
+        const timer=setInterval(function(){
+
+            value+=5;
+
+            progress.style.width=value+"%";
+
+            progress.innerHTML=value+"%";
+
+            if(value>=100){
+
+                clearInterval(timer);
+
+            }
+
+        },60);
+
+    }
+
+});
+
+dropArea.addEventListener("dragover",function(e){
+
+    e.preventDefault();
+
+    dropArea.classList.add("drag");
+
+});
+
+dropArea.addEventListener("dragleave",function(){
+
+    dropArea.classList.remove("drag");
+
+});
+
+dropArea.addEventListener("drop",function(e){
+
+    e.preventDefault();
+
+    dropArea.classList.remove("drag");
+
+    input.files=e.dataTransfer.files;
+
+    fileName.innerHTML=input.files[0].name;
+
+});
+
+</script>
+
+</body>
+
+</html>

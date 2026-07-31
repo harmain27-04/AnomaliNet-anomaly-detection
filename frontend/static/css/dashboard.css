@@ -1,0 +1,969 @@
+/* =====================================================
+   ANOMALINET DASHBOARD
+   Part 1
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    font-family:'Inter',sans-serif;
+
+}
+
+body{
+
+    background:#F8FAFC;
+
+    overflow-x:hidden;
+
+}
+
+/* ===============================
+SIDEBAR
+================================ */
+
+.sidebar{
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    width:270px;
+
+    height:100vh;
+
+    background:linear-gradient(
+        180deg,
+        #B8F2E6,
+        #CDB4DB
+    );
+
+    box-shadow:5px 0px 20px rgba(0,0,0,.08);
+
+    padding-top:30px;
+
+    z-index:1000;
+
+}
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+}
+
+.logo i{
+
+    font-size:55px;
+
+    color:#3D405B;
+
+    margin-bottom:12px;
+
+}
+
+.logo h3{
+
+    color:#3D405B;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+.sidebar ul{
+
+    list-style:none;
+
+    padding-left:0;
+
+}
+
+.sidebar li{
+
+    margin:12px 18px;
+
+}
+
+.sidebar li a{
+
+    display:flex;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    color:#3D405B;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    transition:.3s;
+
+}
+
+.sidebar li a i{
+
+    width:40px;
+
+    font-size:20px;
+
+}
+
+.sidebar li a:hover{
+
+    background:white;
+
+    color:#4F46E5;
+
+    transform:translateX(6px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.active a{
+
+    background:white;
+
+    color:#4F46E5 !important;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+/* ===============================
+MAIN CONTENT
+================================ */
+
+.main-content{
+
+    margin-left:290px;
+
+    padding:35px;
+
+}
+
+/* ===============================
+TOP BAR
+================================ */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+
+}
+
+.topbar h2{
+
+    font-weight:700;
+
+    color:#2C3E50;
+
+}
+
+.topbar p{
+
+    color:#7F8C8D;
+
+    margin-top:6px;
+
+}
+
+.profile{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:34px;
+
+    color:#4F46E5;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+/* ===============================
+STATISTICS CARDS
+================================ */
+
+.dashboard-card{
+
+    background:white;
+
+    border-radius:22px;
+
+    padding:30px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+
+    transition:.35s;
+
+    text-align:center;
+
+    height:220px;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.10);
+
+}
+
+.dashboard-card h5{
+
+    margin-top:18px;
+
+    color:#666;
+
+    font-size:18px;
+
+}
+
+.dashboard-card h2{
+
+    margin-top:12px;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#2C3E50;
+
+}
+
+/* ===============================
+ICONS
+================================ */
+
+.icon{
+
+    width:85px;
+
+    height:85px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:38px;
+
+}
+
+.primary{
+
+    background:#D6E4FF;
+
+    color:#3B82F6;
+
+}
+
+.success{
+
+    background:#D9FBE7;
+
+    color:#16A34A;
+
+}
+
+.warning{
+
+    background:#FFF3D4;
+
+    color:#F59E0B;
+
+}
+
+.danger{
+
+    background:#FFE2E2;
+
+    color:#EF4444;
+
+}
+
+/* ===============================
+GLASS CARD
+================================ */
+
+.glass-card{
+
+    background:rgba(255,255,255,.80);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    padding:30px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.glass-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.glass-card h4{
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+    color:#374151;
+
+}
+
+.glass-card p{
+
+    color:#7F8C8D;
+
+    line-height:1.7;
+
+}
+
+/* ===============================
+UPLOAD BUTTON
+================================ */
+
+.btn-upload{
+
+    margin-top:18px;
+
+    background:#8FD3C8;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    padding:14px 40px;
+
+    border-radius:16px;
+
+    border:none;
+
+    transition:.3s;
+
+}
+
+.btn-upload:hover{
+
+    background:#6CC9BA;
+
+    color:white;
+
+    transform:translateY(-3px);
+
+}
+
+/* ===============================
+QUICK BUTTONS
+================================ */
+
+.quick-btn{
+
+    display:block;
+
+    text-decoration:none;
+
+    color:#34495E;
+
+    background:#F7F9FC;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    margin-bottom:14px;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.quick-btn i{
+
+    width:35px;
+
+}
+
+.quick-btn:hover{
+
+    background:#B8F2E6;
+
+    color:#2C3E50;
+
+    transform:translateX(6px);
+
+}
+
+.logout{
+
+    background:#FFE4E6;
+
+}
+
+.logout:hover{
+
+    background:#FFC9D2;
+
+}
+/* =====================================================
+   ANOMALINET DASHBOARD
+   Part 2
+===================================================== */
+
+
+/* ===============================
+STATUS BADGES
+================================ */
+
+.status{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.status.online{
+
+    background:#D9FBE7;
+
+    color:#16A34A;
+
+}
+
+.status.offline{
+
+    background:#FFE2E2;
+
+    color:#EF4444;
+
+}
+
+.status.warning{
+
+    background:#FFF4CC;
+
+    color:#F59E0B;
+
+}
+
+
+/* ===============================
+TABLE
+================================ */
+
+.table{
+
+    margin-top:20px;
+
+    border-collapse:separate;
+
+    border-spacing:0 12px;
+
+}
+
+.table tr{
+
+    background:#F8FAFC;
+
+    transition:.3s;
+
+}
+
+.table tr:hover{
+
+    background:#E8F6F3;
+
+    transform:scale(1.01);
+
+}
+
+.table td{
+
+    border:none;
+
+    padding:15px;
+
+    font-size:15px;
+
+    color:#4B5563;
+
+}
+
+.table td:first-child{
+
+    font-weight:600;
+
+}
+
+
+/* ===============================
+ACTIVITY
+================================ */
+
+.activity{
+
+    list-style:none;
+
+    padding-left:0;
+
+    margin-top:20px;
+
+}
+
+.activity li{
+
+    display:flex;
+
+    align-items:center;
+
+    background:#F8FAFC;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    margin-bottom:15px;
+
+    transition:.3s;
+
+    font-size:15px;
+
+    color:#374151;
+
+}
+
+.activity li:hover{
+
+    background:#DFF7F2;
+
+    transform:translateX(6px);
+
+}
+
+.activity i{
+
+    color:#16A34A;
+
+    margin-right:15px;
+
+    font-size:18px;
+
+}
+
+
+/* ===============================
+FOOTER
+================================ */
+
+.footer{
+
+    margin-top:50px;
+
+    text-align:center;
+
+    color:#7F8C8D;
+
+    font-size:14px;
+
+    padding:20px;
+
+}
+
+
+/* ===============================
+BADGES
+================================ */
+
+.badge{
+
+    font-size:14px;
+
+    padding:10px 18px;
+
+    border-radius:25px;
+
+}
+
+
+/* ===============================
+SCROLLBAR
+================================ */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#EDF2F7;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#B8F2E6;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#8FD3C8;
+
+}
+
+
+/* ===============================
+ANIMATIONS
+================================ */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.dashboard-card{
+
+    animation:fadeIn .6s ease;
+
+}
+
+.glass-card{
+
+    animation:fadeIn .8s ease;
+
+}
+
+
+/* ===============================
+HOVER EFFECTS
+================================ */
+
+.dashboard-card:hover .icon{
+
+    transform:rotate(8deg) scale(1.08);
+
+    transition:.4s;
+
+}
+
+.quick-btn:hover i{
+
+    transform:translateX(5px);
+
+    transition:.3s;
+
+}
+
+.logo i{
+
+    transition:.4s;
+
+}
+
+.logo:hover i{
+
+    transform:rotate(-12deg);
+
+}
+
+
+/* ===============================
+UPLOAD CARD
+================================ */
+
+.upload-area{
+
+    margin-top:20px;
+
+    border:3px dashed #B8F2E6;
+
+    border-radius:20px;
+
+    background:#FCFFFF;
+
+    padding:60px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.upload-area:hover{
+
+    background:#F2FFFC;
+
+    border-color:#8FD3C8;
+
+}
+
+.upload-area i{
+
+    font-size:65px;
+
+    color:#8FD3C8;
+
+    margin-bottom:20px;
+
+}
+
+.upload-area h3{
+
+    color:#374151;
+
+}
+
+.upload-area p{
+
+    color:#7F8C8D;
+
+}
+
+
+/* ===============================
+BUTTONS
+================================ */
+
+.btn{
+
+    border-radius:15px;
+
+    padding:12px 28px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+
+/* ===============================
+CARD TITLE
+================================ */
+
+.glass-card h4 i{
+
+    margin-right:12px;
+
+    color:#8FD3C8;
+
+}
+
+
+/* ===============================
+PROFILE
+================================ */
+
+.profile{
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.profile:hover{
+
+    transform:scale(1.08);
+
+}
+
+
+/* ===============================
+RESPONSIVE
+================================ */
+
+@media(max-width:1200px){
+
+    .main-content{
+
+        margin-left:0;
+
+        padding:25px;
+
+    }
+
+    .sidebar{
+
+        position:relative;
+
+        width:100%;
+
+        height:auto;
+
+    }
+
+}
+
+
+@media(max-width:992px){
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .profile{
+
+        margin-top:20px;
+
+    }
+
+}
+
+
+@media(max-width:768px){
+
+    .dashboard-card{
+
+        margin-bottom:20px;
+
+        height:auto;
+
+    }
+
+    .glass-card{
+
+        margin-bottom:20px;
+
+    }
+
+    .logo{
+
+        margin-bottom:25px;
+
+    }
+
+}
+
+
+@media(max-width:576px){
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+    .main-content{
+
+        margin-left:0;
+
+        padding:18px;
+
+    }
+
+    .topbar h2{
+
+        font-size:24px;
+
+    }
+
+    .dashboard-card h2{
+
+        font-size:32px;
+
+    }
+
+    .upload-area{
+
+        padding:35px;
+
+    }
+
+}
+
+
+/* ===============================
+END
+================================ */
