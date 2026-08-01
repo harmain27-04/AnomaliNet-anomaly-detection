@@ -48,7 +48,21 @@ AUTOENCODER_MODEL = os.path.join(
     "autoencoder",
     "autoencoder.pth"
 )
+# ==========================================
+# TRACKER
+# ==========================================
 
+TRACKER_CONFIG = "bytetrack.yaml"
+
+TRACKER_IOU = 0.55
+
+TRACKER_CONFIDENCE = 0.45
+
+MAX_PERSONS = 15
+
+MIN_BOX_WIDTH = 40
+
+MIN_BOX_HEIGHT = 80
 # =====================================================
 # VIDEO
 # =====================================================

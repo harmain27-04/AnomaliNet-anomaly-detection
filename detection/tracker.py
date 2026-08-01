@@ -10,9 +10,11 @@ from ultralytics import YOLO
 
 from detection.config import (
     YOLO_MODEL,
-    YOLO_CONFIDENCE
+    TRACKER_CONFIG,
+    TRACKER_CONFIDENCE,
+    MIN_BOX_WIDTH,
+    MIN_BOX_HEIGHT
 )
-
 
 class PersonTracker:
 
@@ -39,9 +41,9 @@ class PersonTracker:
 
                 persist=True,
 
-                tracker="bytetrack.yaml",
+                tracker=TRACKER_CONFIG,
 
-                conf=YOLO_CONFIDENCE,
+                conf=TRACKER_CONFIDENCE,
 
                 classes=[0],
 
@@ -67,6 +69,8 @@ class PersonTracker:
                     continue
 
                 person_id = int(box.id.item())
+                if person_id < 0:
+                    continue
 
                 confidence = float(box.conf.item())
 
@@ -74,10 +78,23 @@ class PersonTracker:
                     int,
                     box.xyxy[0]
                 )
+                frame_height, frame_width = frame.shape[:2]
 
-                if x2 <= x1 or y2 <= y1:
+                x1 = max(0, x1)
+                y1 = max(0, y1)
+
+                x2 = min(frame_width - 1, x2)
+                y2 = min(frame_height - 1, y2)
+                width = x2 - x1
+                height = y2 - y1
+
+                if width < MIN_BOX_WIDTH:
                     continue
 
+                if height < MIN_BOX_HEIGHT:
+                    continue
+                if confidence < TRACKER_CONFIDENCE:
+                    continue
                 detections.append({
 
                     "id": person_id,
@@ -100,5 +117,6 @@ class PersonTracker:
             print("Tracker Error")
 
             print(e)
+            print(f"Tracked Persons : {len(detections)}")
 
         return detections

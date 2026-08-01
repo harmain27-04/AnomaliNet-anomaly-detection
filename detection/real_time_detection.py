@@ -149,7 +149,7 @@ if len(video_files) == 0:
     )
 
 VIDEO_PATH = str(video_files[0])'''
-VIDEO_PATH = r"C:\Users\fathi\Downloads\fight.mp4"
+VIDEO_PATH = r"C:\Users\fathi\Downloads\fight.MPG"
 
 print("Input Video :", VIDEO_PATH)
 
@@ -465,6 +465,14 @@ while True:
             fusion_score = fusion_result["fusion_score"]
 
             is_anomaly = fusion_result["is_anomaly"]
+            print("\n" + "=" * 60)
+            print(f"Frame              : {frame_number}")
+            print(f"Person ID          : {person_id}")
+            print(f"LSTM Probability   : {anomaly_probability:.4f}")
+            print(f"AE Reconstruction  : {reconstruction_error:.6f}")
+            print(f"Fusion Score       : {fusion_score:.4f}")
+            print(f"Is Anomaly         : {is_anomaly}")
+            print("=" * 60)
 
             # -----------------------------------------
             # Label
@@ -605,11 +613,8 @@ while True:
                         snapshot_path=snapshot if snapshot else "",
                         video_path=output_video,
                         alarm_status="Triggered",
-                        user_email="",
-
-                        timestamp=time.strftime(
-                            "%Y-%m-%d %H:%M:%S"
-                        )
+                        user_email=""
+                        
 
                     )
 
