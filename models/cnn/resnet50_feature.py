@@ -42,11 +42,11 @@ resnet.to(device)
 
 transform = transforms.Compose([
     transforms.ToPILImage(),
-    transforms.Resize((224,224)),
+    transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(
-        mean=[0.485,0.456,0.406],
-        std=[0.229,0.224,0.225]
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225]
     )
 ])
 
@@ -82,6 +82,10 @@ def extract_features(image):
 
         features = resnet(image_tensor)
 
-    features = features.cpu().numpy().flatten()
+    features = features.squeeze(0)
+
+    features = features.cpu().numpy()
+
+    features = features.astype("float32")
 
     return features

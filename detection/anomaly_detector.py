@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 from models.lstm_model.lstm_model import LSTMModel
-from models.autoencoder.spatio_temporal_autoencoder import AutoEncoder
+from models.autoencoder.spatio_temporal_autoencoder import SpatioTemporalAutoencoder
 
 
 DEVICE = torch.device(
@@ -26,7 +26,7 @@ class AnomalyDetector:
 
         self.lstm.eval() 
 
-        self.autoencoder = AutoEncoder().to(DEVICE)
+        self.autoencoder =SpatioTemporalAutoencoder().to(DEVICE)
 
         self.autoencoder.load_state_dict(
             torch.load(
@@ -52,17 +52,17 @@ class AnomalyDetector:
                 dim=1
             ).item()
 
-            last_feature = sequence[-1]
+            mean_feature = torch.mean(sequence, dim=0)
 
             reconstructed = self.autoencoder(
-                last_feature.unsqueeze(0)
+                mean_feature.unsqueeze(0)
             )
 
             mse = torch.mean(
                 (
                     reconstructed
                     -
-                    last_feature.unsqueeze(0)
+                    mean_feature.unsqueeze(0)
                 ) ** 2
             ).item()
 

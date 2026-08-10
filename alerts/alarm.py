@@ -1,6 +1,6 @@
-import os
-import winsound
+from playsound import playsound
 import threading
+import os
 
 alarm_running = False
 
@@ -13,37 +13,23 @@ def _play():
 
     try:
 
-        alarm_path = os.path.abspath(
+        alarm_file = os.path.join(
 
-            os.path.join(
+            os.path.dirname(__file__),
 
-                os.path.dirname(__file__),
-
-                "alarm.wav"
-
-            )
+            "alarm.wav"
 
         )
 
-        if not os.path.exists(alarm_path):
-
-            print("Alarm file not found")
-
-            return
-
-        print("Playing Alarm...")
-
-        winsound.PlaySound(
-
-            alarm_path,
-
-            winsound.SND_FILENAME
-
-        )
+        playsound(alarm_file)
 
     except Exception as e:
 
-        print("Alarm Error :", e)
+        print()
+
+        print("Alarm Error")
+
+        print(e)
 
     finally:
 

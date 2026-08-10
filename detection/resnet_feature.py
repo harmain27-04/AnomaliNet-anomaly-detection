@@ -29,11 +29,13 @@ class ResNetFeatureExtractor:
 
         self.transform = transforms.Compose([
             transforms.ToPILImage(),
-            transforms.Resize((224,224)),
+            transforms.Resize(
+                (FRAME_HEIGHT, FRAME_WIDTH)
+            ),
             transforms.ToTensor(),
             transforms.Normalize(
-                mean=[0.485,0.456,0.406],
-                std=[0.229,0.224,0.225]
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225]
             )
         ])
 
@@ -41,17 +43,26 @@ class ResNetFeatureExtractor:
 
     def extract(self, image):
 
+        if image is None:
+            return None
+
+        if image.size == 0:
+            return None
+
         image = self.transform(image)
 
-        image = image.unsqueeze(0).to(DEVICE)
+        image = image.unsqueeze(0)
+
+        image = image.to(DEVICE)
 
         with torch.no_grad():
 
             feature = self.model(image)
 
-        return (
-            feature
-            .cpu()
-            .numpy()
-            .flatten()
-        )
+        feature = feature.squeeze(0)
+
+        feature = feature.cpu().numpy()
+
+        feature = feature.astype("float32")
+
+        return feature

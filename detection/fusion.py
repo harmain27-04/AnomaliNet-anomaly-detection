@@ -17,14 +17,14 @@ class FeatureFusion:
 
     ):
 
-        reconstruction_score = min(
+        reconstruction_score = reconstruction_error / AUTOENCODER_THRESHOLD
 
-            reconstruction_error /
-
-            AUTOENCODER_THRESHOLD,
-
-            1.0
-
+        reconstruction_score = max(
+            0.0,
+            min(
+                reconstruction_score,
+                1.0
+            )
         )
 
         fusion_score = (
@@ -76,3 +76,4 @@ class FeatureFusion:
             "is_anomaly": anomaly
 
         }
+    

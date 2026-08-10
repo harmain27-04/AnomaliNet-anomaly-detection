@@ -149,7 +149,7 @@ if len(video_files) == 0:
     )
 
 VIDEO_PATH = str(video_files[0])'''
-VIDEO_PATH = r"C:\Users\fathi\Downloads\fight.MPG"
+VIDEO_PATH = r"C:\Users\fathi\Downloads\fight.AVI"
 
 print("Input Video :", VIDEO_PATH)
 
@@ -323,6 +323,12 @@ while True:
             # -----------------------------------------
 
             feature = extractor.extract(roi)
+            if feature is None:
+                continue
+
+            if feature.shape != (2048,):
+                print(f"Invalid Feature Shape : {feature.shape}")
+                continue
 
             if feature is None:
                 continue
@@ -335,7 +341,8 @@ while True:
 
                 person_id,
 
-                feature
+                feature,
+                frame_number
 
             )
 
@@ -397,20 +404,55 @@ while True:
             sequence = sequence_manager.get_sequence(
                 person_id
             )
+            if sequence is None:
+                continue
 
-            sequence_tensor = torch.tensor(
+            if len(sequence) != SEQUENCE_LENGTH:
+                continue
 
+            sequence_tensor = np.asarray(
                 sequence,
+                dtype=np.float32
+            )
 
-                dtype=torch.float32
+            if sequence_tensor.shape != (SEQUENCE_LENGTH, 2048):
 
-            ).unsqueeze(0).to(DEVICE)
+                print()
+
+                print("="*60)
+
+                print("INVALID SEQUENCE")
+
+                print(sequence_tensor.shape)
+
+                print("="*60)
+
+                continue
+
+            sequence_tensor = torch.from_numpy(
+                sequence_tensor
+            )
+
+            sequence_tensor = sequence_tensor.unsqueeze(0)
+
+            sequence_tensor = sequence_tensor.to(DEVICE)
 
             # -----------------------------------------
             # LSTM Prediction
             # -----------------------------------------
-
+            
             with torch.no_grad():
+                if torch.isnan(sequence_tensor).any():
+
+                    print("NaN detected in sequence")
+
+                    continue
+
+                if torch.isinf(sequence_tensor).any():
+
+                    print("INF detected in sequence")
+
+                    continue
 
                 lstm_output = lstm_model(sequence_tensor)
 
@@ -421,12 +463,39 @@ while True:
                     dim=1
 
                 )
+                if torch.isnan(probabilities).any():
+
+                    print("NaN Probability")
+
+                    continue
 
                 anomaly_probability = float(
-
-                    probabilities[0][1]
-
+                    probabilities[0,1].item()
                 )
+                if anomaly_probability < 0:
+
+                    anomaly_probability = 0
+
+                if anomaly_probability > 1:
+
+                    anomaly_probability = 1
+                print()
+
+                print("="*60)
+
+                print("LSTM INPUT")
+
+                print("="*60)
+
+                print("Shape :", sequence_tensor.shape)
+
+                print("Min   :", float(sequence_tensor.min()))
+
+                print("Max   :", float(sequence_tensor.max()))
+
+                print("Mean  :", float(sequence_tensor.mean()))
+
+                print("="*60)
 
             # -----------------------------------------
             # Autoencoder Prediction
@@ -434,26 +503,58 @@ while True:
 
             with torch.no_grad():
 
-                ae_input = torch.mean(
+                # -----------------------------------------
+# Autoencoder Input
+# -----------------------------------------
 
-                    sequence_tensor,
+                ae_input = sequence_tensor.mean(dim=1)
 
-                    dim=1
+                if ae_input.shape != (1, 2048):
 
-                )
+                    print()
+
+                    print("=" * 60)
+
+                    print("INVALID AE INPUT")
+
+                    print(ae_input.shape)
+
+                    print("=" * 60)
+
+                    continue
 
                 reconstructed = autoencoder(ae_input)
 
-                reconstruction_error = torch.mean(
+                reconstruction_error = torch.nn.functional.mse_loss(
 
-                    (ae_input - reconstructed) ** 2
+                    reconstructed,
+
+                    ae_input,
+
+                    reduction="mean"
 
                 ).item()
+
+                if np.isnan(reconstruction_error):
+
+                    print("Invalid Reconstruction Error")
+
+                    continue
 
             # -----------------------------------------
             # Fusion
             # -----------------------------------------
+            if not (0.0 <= anomaly_probability <= 1.0):
 
+                print("Invalid LSTM Probability")
+
+                continue
+
+            if reconstruction_error < 0:
+
+                print("Invalid Reconstruction Error")
+
+                continue
             fusion_result = fusion.classify(
 
                 anomaly_probability,
@@ -470,6 +571,9 @@ while True:
             print(f"Person ID          : {person_id}")
             print(f"LSTM Probability   : {anomaly_probability:.4f}")
             print(f"AE Reconstruction  : {reconstruction_error:.6f}")
+            print(f"LSTM Weight        : {LSTM_WEIGHT}")
+            print(f"AE Weight          : {AUTOENCODER_WEIGHT}")
+            print(f"Fusion Threshold   : {FUSION_THRESHOLD}")
             print(f"Fusion Score       : {fusion_score:.4f}")
             print(f"Is Anomaly         : {is_anomaly}")
             print("=" * 60)
@@ -617,10 +721,31 @@ while True:
                         
 
                     )
+                    print()
+
+                    print("="*60)
+
+                    print("INCIDENT SAVED")
+
+                    print("Score :", fusion_score)
+
+                    print("Confidence :", anomaly_probability)
+
+                    print("="*60)
 
                 except Exception as e:
 
-                    print("Database Error :", e)
+                    print()
+
+                    print("="*60)
+
+                    print("DATABASE ERROR")
+
+                    print(type(e).__name__)
+
+                    print(e)
+
+                    print("="*60)
 
                 last_alert_time = current_time
 
@@ -739,6 +864,9 @@ while True:
     if key & 0xFF == ord('q'):
 
         break
+    sequence_manager.cleanup(
+        frame_number
+    )
 
 # =====================================================
 # Cleanup
