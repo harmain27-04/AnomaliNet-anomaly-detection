@@ -149,12 +149,25 @@ if len(video_files) == 0:
     )
 
 VIDEO_PATH = str(video_files[0])'''
-VIDEO_PATH = r"C:\Users\fathi\Downloads\fight.AVI"
+# -------------------------------------------------------
+# Input Video from Flask / Command Line
+# -------------------------------------------------------
+
+if len(sys.argv) < 2:
+
+    raise ValueError(
+        "Video path not provided."
+    )
+
+VIDEO_PATH = sys.argv[1]
 
 print("Input Video :", VIDEO_PATH)
 
 if not os.path.exists(VIDEO_PATH):
-    raise FileNotFoundError(f"Video not found: {VIDEO_PATH}")
+
+    raise FileNotFoundError(
+        f"Video not found: {VIDEO_PATH}"
+    )
 
 print("Input Video :", VIDEO_PATH)
 
@@ -188,21 +201,37 @@ height = int(
 # Output Video
 # -------------------------------------------------------
 
+# -------------------------------------------------------
+# Output Video
+# -------------------------------------------------------
+
 os.makedirs(
     OUTPUT_FOLDER,
     exist_ok=True
 )
 
+input_filename = os.path.basename(
+    VIDEO_PATH
+)
+
+video_name_without_extension = os.path.splitext(
+    input_filename
+)[0]
+
+output_filename = (
+    f"output_{video_name_without_extension}.mp4"
+)
+
 output_video = os.path.join(
     OUTPUT_FOLDER,
-    "processed_output.mp4"
+    output_filename
 )
 
 writer = cv2.VideoWriter(
 
     output_video,
 
-    cv2.VideoWriter_fourcc(*'mp4v'),
+    cv2.VideoWriter_fourcc(*"mp4v"),
 
     fps,
 
