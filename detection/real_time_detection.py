@@ -50,6 +50,9 @@ from models.autoencoder.spatio_temporal_autoencoder import SpatioTemporalAutoenc
 # -------------------------------------------------------
 
 from alerts.alert_manager import trigger_all_alerts
+from alerts.mqtt_publisher import (
+    publish_incident
+)
 
 # -------------------------------------------------------
 # Database
@@ -735,6 +738,35 @@ while True:
                 print("=" * 60)
 
                 snapshot = trigger_all_alerts(frame)
+                # -----------------------------------------
+                # Publish Incident to Police Workstation
+                # -----------------------------------------
+
+                mqtt_success = publish_incident(
+
+                    person_id=person_id,
+
+                    confidence=anomaly_probability,
+
+                    fusion_score=fusion_score,
+
+                    snapshot_path=snapshot,
+
+                    camera_id="CAMERA_01"
+
+                )
+
+                if mqtt_success:
+
+                    print(
+                        "Incident sent to Police Workstation"
+                    )
+
+                else:
+
+                    print(
+                        "Failed to send incident through MQTT"
+                    )
 
                 try:
 

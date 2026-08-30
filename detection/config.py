@@ -6,7 +6,8 @@ AnomaliNet Configuration
 
 import os
 import torch
-
+from dotenv import load_dotenv
+load_dotenv()
 # =====================================================
 # DEVICE
 # =====================================================
@@ -138,3 +139,34 @@ COLOR_NORMAL = (0,255,0)
 COLOR_ANOMALY = (0,0,255)
 
 COLOR_COLLECTING = (0,255,255)
+
+
+# =====================================================
+# MQTT POLICE WORKSTATION
+# =====================================================
+
+# =====================================================
+# MQTT POLICE WORKSTATION
+# =====================================================
+
+MQTT_ENABLED = True
+
+# HiveMQ Cloud
+MQTT_BROKER = "b5581c5800a543359895176cc38fba67.s1.eu.hivemq.cloud"
+
+MQTT_PORT = 8883
+
+MQTT_TOPIC = "anomalinet/incidents"
+
+MQTT_CLIENT_ID = "anomalinet_detector"
+
+# HiveMQ Cloud authentication
+MQTT_USERNAME = os.getenv(
+    "MQTT_USERNAME",
+    "AnomaliNet"
+)
+
+MQTT_PASSWORD = os.getenv(
+    "MQTT_PASSWORD",
+    ""
+)

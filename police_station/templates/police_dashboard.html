@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AnomaliNet Police Workstation</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        body {
+
+            margin: 0;
+
+            background: #0b1220;
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+        }
+
+        .navbar {
+
+            background: #111827;
+
+            padding: 18px 30px;
+
+            border-bottom: 1px solid #263244;
+
+        }
+
+        .navbar-title {
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+        }
+
+        .status {
+
+            color: #22c55e;
+
+            font-weight: bold;
+
+        }
+
+        .container-main {
+
+            padding: 30px;
+
+        }
+
+        .alert-card {
+
+            background: #111827;
+
+            border: 2px solid #ef4444;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 0 25px rgba(239, 68, 68, 0.25);
+
+        }
+
+        .alert-title {
+
+            color: #ef4444;
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+        }
+
+        .incident-info {
+
+            background: #1f2937;
+
+            border-radius: 10px;
+
+            padding: 18px;
+
+            margin-top: 20px;
+
+        }
+
+        .info-label {
+
+            color: #9ca3af;
+
+            font-size: 13px;
+
+        }
+
+        .info-value {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+        }
+
+        .snapshot-container {
+
+            margin-top: 25px;
+
+            text-align: center;
+
+        }
+
+        .snapshot {
+
+            max-width: 100%;
+
+            max-height: 500px;
+
+            border-radius: 12px;
+
+            border: 2px solid #374151;
+
+        }
+
+        .no-image {
+
+            padding: 80px 20px;
+
+            background: #1f2937;
+
+            border-radius: 12px;
+
+            color: #9ca3af;
+
+        }
+
+        .recent-card {
+
+            background: #111827;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+            margin-top: 30px;
+
+        }
+
+        table {
+
+            color: white !important;
+
+        }
+
+        th {
+
+            color: #9ca3af !important;
+
+        }
+
+        td {
+
+            vertical-align: middle;
+
+        }
+
+        .badge-new {
+
+            background: #ef4444;
+
+        }
+
+        .badge-normal {
+
+            background: #22c55e;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     NAVBAR
+=================================================== -->
+
+<nav class="navbar">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <div>
+
+            <div class="navbar-title">
+
+                🚔 AnomaliNet Police Workstation
+
+            </div>
+
+            <small>
+
+                AI-Based Real-Time Surveillance Monitoring
+
+            </small>
+
+        </div>
+
+        <div>
+
+            <span class="status">
+
+                ● SYSTEM ONLINE
+
+            </span>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ==================================================
+     MAIN
+=================================================== -->
+
+<div class="container-main">
+
+
+    <!-- ==================================================
+         LATEST INCIDENT
+    =================================================== -->
+
+    <div class="alert-card">
+
+
+        {% if latest_incident %}
+
+
+            <div class="alert-title">
+
+                🚨 ANOMALY DETECTED
+
+            </div>
+
+
+            <p class="text-secondary">
+
+                New surveillance incident received.
+
+            </p>
+
+
+            <!-- INFORMATION -->
+
+            <div class="row incident-info">
+
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="info-label">
+
+                        INCIDENT TYPE
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ latest_incident["incident_type"] }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="info-label">
+
+                        PERSON ID
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ latest_incident["person_id"] }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="info-label">
+
+                        CAMERA ID
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ latest_incident["camera_id"] }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="info-label">
+
+                        STATUS
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ latest_incident["status"] }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="info-label">
+
+                        CONFIDENCE
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ latest_incident["confidence"] }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="info-label">
+
+                        FUSION SCORE
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ latest_incident["fusion_score"] }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+
+                    <div class="info-label">
+
+                        TIMESTAMP
+
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ latest_incident["timestamp"] }}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ==================================================
+                 SNAPSHOT
+            =================================================== -->
+
+            <div class="snapshot-container">
+
+                <h5>
+
+                    📸 Incident Snapshot
+
+                </h5>
+
+
+                {% if latest_incident["snapshot"] %}
+
+
+                    {% set snapshot_path =
+                        latest_incident["snapshot"]
+                        .replace("\\", "/")
+                    %}
+
+                    {% set snapshot_filename =
+                        snapshot_path.split("/")[-1]
+                    %}
+
+
+                    <img
+
+                        src="{{ url_for(
+                            'snapshot',
+                            filename=snapshot_filename
+                        ) }}"
+
+                        class="snapshot"
+
+                        alt="Incident Snapshot"
+
+                    >
+
+
+                {% else %}
+
+
+                    <div class="no-image">
+
+                        No snapshot received.
+
+                    </div>
+
+
+                {% endif %}
+
+            </div>
+
+
+        {% else %}
+
+
+            <div class="text-center">
+
+                <h2>
+
+                    🟢 No Active Incidents
+
+                </h2>
+
+                <p class="text-secondary">
+
+                    Police workstation is waiting for
+                    incoming surveillance alerts.
+
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- ==================================================
+         RECENT INCIDENTS
+    =================================================== -->
+
+    <div class="recent-card">
+
+
+        <h3>
+
+            📋 Recent Incidents
+
+        </h3>
+
+
+        <div class="table-responsive">
+
+
+            <table class="table table-dark table-hover">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Type</th>
+
+                        <th>Person</th>
+
+                        <th>Camera</th>
+
+                        <th>Confidence</th>
+
+                        <th>Fusion</th>
+
+                        <th>Time</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% for incident in recent_incidents %}
+
+
+                    <tr>
+
+                        <td>
+
+                            {{ incident["id"] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ incident["incident_type"] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ incident["person_id"] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ incident["camera_id"] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ incident["confidence"] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ incident["fusion_score"] }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ incident["timestamp"] }}
+
+                        </td>
+
+
+                        <td>
+
+
+                            {% if incident["status"] == "NEW" %}
+
+                                <span class="badge badge-new">
+
+                                    NEW
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge badge-normal">
+
+                                    {{ incident["status"] }}
+
+                                </span>
+
+                            {% endif %}
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- ==================================================
+     AUTO REFRESH
+=================================================== -->
+
+<script>
+
+    setTimeout(function() {
+
+        window.location.reload();
+
+    }, 3000);
+
+</script>
+
+
+</body>
+
+</html>

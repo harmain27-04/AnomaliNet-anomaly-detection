@@ -62,12 +62,21 @@ def run_detection(video_path):
         }
     try:
         
-        video_name = os.path.basename(video_path)
+        video_name = os.path.basename(
+            video_path
+        )
 
-        
+        video_name_without_extension = os.path.splitext(
+            video_name
+        )[0]
+
+        output_filename = (
+            f"output_{video_name_without_extension}.mp4"
+        )
+
         output_video = os.path.join(
             OUTPUT_FOLDER,
-            "output_" + video_name
+            output_filename
         )
 
         print("\n" + "=" * 70)
