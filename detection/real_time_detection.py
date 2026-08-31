@@ -11,7 +11,9 @@ import cv2
 import time
 import torch
 import numpy as np
+import json
 from pathlib import Path
+from datetime import datetime
 
 # -------------------------------------------------------
 # Add Project Root
@@ -164,7 +166,11 @@ if len(sys.argv) < 2:
 
 VIDEO_PATH = sys.argv[1]
 
+# Optional second argument: "web" disables the OpenCV GUI when launched by Flask.
+WEB_MODE = len(sys.argv) >= 3 and sys.argv[2].lower() == "web"
+
 print("Input Video :", VIDEO_PATH)
+print("Web Mode    :", WEB_MODE)
 
 if not os.path.exists(VIDEO_PATH):
 
@@ -256,6 +262,94 @@ inactive_counter = {}
 
 MAX_INACTIVE_FRAMES = 30
 
+# Per-video result state. Flask reads this run-specific result instead of an older DB row.
+anomaly_count = 0
+max_anomaly_probability = 0.0
+max_fusion_score = 0.0
+best_anomaly = None
+alert_count = 0
+
+SUMMARY_FOLDER = os.path.join(PROJECT_ROOT, "frontend", "static", "detection_results")
+os.makedirs(SUMMARY_FOLDER, exist_ok=True)
+summary_filename = f"summary_{video_name_without_extension}.json"
+summary_path = os.path.join(SUMMARY_FOLDER, summary_filename)
+
+def write_summary(status, message="", incident=None):
+
+    data = {
+        "success": status != "FAILED",
+
+        "status": status,
+
+        "message": message,
+
+        "video_path": (
+            "processed_videos/"
+            + output_filename
+        ),
+
+        "video_filename": output_filename,
+
+        "timestamp": datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"
+        ),
+
+        "anomaly_detected": (
+            status == "ANOMALY"
+        ),
+
+        "anomaly_count": int(
+            anomaly_count
+        ),
+
+        "confidence": round(
+            float(max_anomaly_probability),
+            4
+        ),
+
+        "fusion_score": round(
+            float(max_fusion_score),
+            4
+        ),
+
+        "alarm_status": (
+            "TRIGGERED"
+            if alert_count > 0
+            else
+            "NOT TRIGGERED"
+        ),
+
+        "snapshot_status": (
+            "CAPTURED"
+            if incident
+            and incident.get("snapshot_path")
+            else
+            "NOT REQUIRED"
+        ),
+
+        "snapshot_path": (
+            incident.get("snapshot_path", "")
+            if incident
+            else ""
+        ),
+
+        "incident": incident
+    }
+
+    with open(
+        summary_path,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            data,
+            f,
+            indent=4
+        )
+
+    return data
+
 print("=" * 70)
 print("Starting Real-Time Detection...")
 print("=" * 70)
@@ -288,29 +382,26 @@ while True:
         if len(detections) == 0:
 
             cv2.putText(
-
                 frame,
-
                 "No Person Detected",
-
                 (20, 40),
-
                 cv2.FONT_HERSHEY_SIMPLEX,
-
                 1,
-
                 (0, 0, 255),
-
                 2
-
             )
 
             writer.write(frame)
 
-            cv2.imshow("AnomaliNet", frame)
+            if not WEB_MODE:
 
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                break
+                cv2.imshow(
+                    "AnomaliNet",
+                    frame
+                )
+
+                if cv2.waitKey(1) & 0xFF == ord("q"):
+                    break
 
             continue
 
@@ -721,6 +812,11 @@ while True:
             # Alert Cooldown
             # -----------------------------------------
 
+            if is_anomaly:
+                anomaly_count += 1
+                max_anomaly_probability = max(max_anomaly_probability, anomaly_probability)
+                max_fusion_score = max(max_fusion_score, fusion_score)
+
             current_time = time.time()
 
             if (
@@ -808,6 +904,16 @@ while True:
 
                     print("="*60)
 
+                alert_count += 1
+                best_anomaly = {
+                    "person_id": int(person_id),
+                    "confidence": round(float(anomaly_probability), 4),
+                    "fusion_score": round(float(fusion_score), 4),
+                    "snapshot_path": snapshot if snapshot else "",
+                    "alarm_status": "Triggered",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "mqtt_sent": bool(mqtt_success)
+                }
                 last_alert_time = current_time
 
         # ---------------------------------------------
@@ -912,19 +1018,16 @@ while True:
     # Display Window
     # -------------------------------------------------
 
-    cv2.imshow(
+    if not WEB_MODE:
+        cv2.imshow(
+            "AnomaliNet",
+            frame
+        )
 
-        "AnomaliNet",
+        key = cv2.waitKey(1)
 
-        frame
-
-    )
-
-    key = cv2.waitKey(1)
-
-    if key & 0xFF == ord('q'):
-
-        break
+        if key & 0xFF == ord("q"):
+            break
     sequence_manager.cleanup(
         frame_number
     )
@@ -945,8 +1048,86 @@ cap.release()
 
 writer.release()
 
-cv2.destroyAllWindows()
+if not WEB_MODE:
+    cv2.destroyAllWindows()
 
+
+# =====================================================
+# Final Detection Result
+# =====================================================
+
+if anomaly_count > 0:
+
+    final_status = "ANOMALY"
+
+    final_message = (
+        "Abnormal activity detected."
+    )
+
+    final_incident = best_anomaly
+
+else:
+
+    final_status = "NORMAL"
+
+    final_message = (
+        "No abnormal activity detected."
+    )
+
+    final_incident = None
+
+
+final_result = write_summary(
+
+    status=final_status,
+
+    message=final_message,
+
+    incident=final_incident
+
+)
+
+print()
+print("=" * 70)
+print("FINAL DETECTION RESULT")
+print("=" * 70)
+
+print(
+    "Status          :",
+    final_result["status"]
+)
+
+print(
+    "Confidence      :",
+    final_result["confidence"]
+)
+
+print(
+    "Fusion Score    :",
+    final_result["fusion_score"]
+)
+
+print(
+    "Alarm           :",
+    final_result["alarm_status"]
+)
+
+print(
+    "Snapshot        :",
+    final_result["snapshot_status"]
+)
+
+print(
+    "Summary File    :",
+    summary_path
+)
+
+print(
+    "Processed Video :",
+    output_video
+)
+
+print("=" * 70)
 sequence_manager.clear()
 
 inference_manager.clear()

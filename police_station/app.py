@@ -1,10 +1,10 @@
 """
-========================================================
+=========================================================
 AnomaliNet Police Workstation
-========================================================
-Flask application for displaying incidents received
-through MQTT at the Police Station.
-========================================================
+=========================================================
+Live Flask dashboard for displaying anomaly incidents
+received through MQTT at the Police Station.
+=========================================================
 """
 
 from flask import (
@@ -39,7 +39,7 @@ app = Flask(__name__)
 
 
 # ======================================================
-# DATABASE
+# DATABASE CONNECTION
 # ======================================================
 
 def get_connection():
@@ -51,6 +51,43 @@ def get_connection():
     connection.row_factory = sqlite3.Row
 
     return connection
+
+
+# ======================================================
+# PREPARE INCIDENT FOR DASHBOARD
+# ======================================================
+
+def prepare_incident(incident):
+
+    if incident is None:
+
+        return None
+
+    data = dict(incident)
+
+    snapshot = data.get("snapshot", "")
+
+    # --------------------------------------------------
+    # Convert stored filesystem path to filename
+    # --------------------------------------------------
+
+    if snapshot:
+
+        filename = Path(snapshot).name
+
+        data["snapshot_filename"] = filename
+
+        data["snapshot_url"] = (
+            "/snapshots/" + filename
+        )
+
+    else:
+
+        data["snapshot_filename"] = ""
+
+        data["snapshot_url"] = ""
+
+    return data
 
 
 # ======================================================
@@ -76,11 +113,7 @@ def get_latest_incident():
 
     connection.close()
 
-    if incident:
-
-        return dict(incident)
-
-    return None
+    return prepare_incident(incident)
 
 
 # ======================================================
@@ -108,7 +141,7 @@ def get_recent_incidents(limit=20):
     connection.close()
 
     return [
-        dict(incident)
+        prepare_incident(incident)
         for incident in incidents
     ]
 
@@ -144,16 +177,6 @@ def dashboard():
 def latest_api():
 
     incident = get_latest_incident()
-
-    if incident is None:
-
-        return jsonify({
-
-            "success": True,
-
-            "incident": None
-
-        })
 
     return jsonify({
 
@@ -209,13 +232,14 @@ def health():
 
         "status": "running",
 
-        "service": "AnomaliNet Police Workstation",
+        "service":
+            "AnomaliNet Police Workstation",
 
-        "database": str(DATABASE_PATH),
+        "database":
+            str(DATABASE_PATH),
 
-        "mqtt_snapshot_folder": str(
-            RECEIVED_INCIDENTS_FOLDER
-        )
+        "mqtt_snapshot_folder":
+            str(RECEIVED_INCIDENTS_FOLDER)
 
     })
 
@@ -228,7 +252,9 @@ if __name__ == "__main__":
 
     print("=" * 60)
 
-    print("ANOMALINET POLICE WORKSTATION")
+    print(
+        "ANOMALINET POLICE WORKSTATION"
+    )
 
     print("=" * 60)
 
@@ -246,7 +272,7 @@ if __name__ == "__main__":
 
     app.run(
 
-        host="127.0.0.1",
+        host="0.0.0.0",
 
         port=5001,
 

@@ -5,16 +5,23 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>AnomaliNet Police Workstation</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
 
         body {
 
@@ -24,9 +31,15 @@
 
             color: white;
 
-            font-family: Arial, sans-serif;
-
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
         }
+
+        /* =========================================
+           HEADER
+        ========================================== */
 
         .navbar {
 
@@ -34,8 +47,8 @@
 
             padding: 18px 30px;
 
-            border-bottom: 1px solid #263244;
-
+            border-bottom:
+                1px solid #263244;
         }
 
         .navbar-title {
@@ -43,47 +56,119 @@
             font-size: 24px;
 
             font-weight: bold;
-
         }
 
-        .status {
+        .navbar-subtitle {
+
+            color: #9ca3af;
+
+            font-size: 14px;
+
+            margin-top: 5px;
+        }
+
+        .system-status {
 
             color: #22c55e;
 
             font-weight: bold;
-
         }
+
+        .status-dot {
+
+            display: inline-block;
+
+            width: 10px;
+
+            height: 10px;
+
+            background: #22c55e;
+
+            border-radius: 50%;
+
+            margin-right: 6px;
+
+            animation:
+                blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================== */
 
         .container-main {
 
-            padding: 30px;
+            max-width: 1450px;
 
+            margin: auto;
+
+            padding: 30px;
         }
+
+
+        /* =========================================
+           ALERT
+        ========================================== */
 
         .alert-card {
 
             background: #111827;
 
-            border: 2px solid #ef4444;
+            border:
+                2px solid #374151;
 
             border-radius: 15px;
 
             padding: 25px;
 
-            box-shadow:
-                0 0 25px rgba(239, 68, 68, 0.25);
+            margin-bottom: 25px;
+        }
 
+        .alert-card.active {
+
+            border-color: #ef4444;
+
+            box-shadow:
+                0 0 30px
+                rgba(239, 68, 68, 0.30);
         }
 
         .alert-title {
-
-            color: #ef4444;
 
             font-size: 30px;
 
             font-weight: bold;
 
+            color: #ef4444;
         }
+
+        .alert-message {
+
+            margin-top: 8px;
+
+            color: #d1d5db;
+        }
+
+
+        /* =========================================
+           INCIDENT GRID
+        ========================================== */
 
         .incident-info {
 
@@ -94,31 +179,49 @@
             padding: 18px;
 
             margin-top: 20px;
+        }
 
+        .info-box {
+
+            background: #111827;
+
+            border-radius: 8px;
+
+            padding: 14px;
+
+            margin-bottom: 12px;
         }
 
         .info-label {
 
             color: #9ca3af;
 
-            font-size: 13px;
+            font-size: 12px;
 
+            text-transform: uppercase;
         }
 
         .info-value {
+
+            margin-top: 5px;
 
             font-size: 18px;
 
             font-weight: bold;
 
+            word-break: break-word;
         }
+
+
+        /* =========================================
+           SNAPSHOT
+        ========================================== */
 
         .snapshot-container {
 
             margin-top: 25px;
 
             text-align: center;
-
         }
 
         .snapshot {
@@ -129,8 +232,12 @@
 
             border-radius: 12px;
 
-            border: 2px solid #374151;
+            border:
+                2px solid #374151;
 
+            object-fit: contain;
+
+            background: black;
         }
 
         .no-image {
@@ -142,8 +249,12 @@
             border-radius: 12px;
 
             color: #9ca3af;
-
         }
+
+
+        /* =========================================
+           RECENT INCIDENTS
+        ========================================== */
 
         .recent-card {
 
@@ -154,36 +265,140 @@
             padding: 25px;
 
             margin-top: 30px;
+        }
 
+        .recent-title {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+
+            overflow-x: auto;
         }
 
         table {
 
-            color: white !important;
+            width: 100%;
 
+            border-collapse: collapse;
         }
 
         th {
 
-            color: #9ca3af !important;
+            text-align: left;
 
+            padding: 12px;
+
+            background: #1f2937;
+
+            color: #9ca3af;
+
+            white-space: nowrap;
         }
 
         td {
 
-            vertical-align: middle;
+            padding: 12px;
 
+            border-bottom:
+                1px solid #374151;
+
+            color: #e5e7eb;
+
+            white-space: nowrap;
+        }
+
+        tr:hover {
+
+            background: #1f2937;
+        }
+
+
+        /* =========================================
+           BADGES
+        ========================================== */
+
+        .badge {
+
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
         }
 
         .badge-new {
 
-            background: #ef4444;
+            background: #7f1d1d;
 
+            color: #fecaca;
         }
 
         .badge-normal {
 
-            background: #22c55e;
+            background: #14532d;
+
+            color: #bbf7d0;
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================== */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #9ca3af;
+        }
+
+
+        /* =========================================
+           CONNECTION
+        ========================================== */
+
+        .connection-status {
+
+            margin-top: 10px;
+
+            font-size: 13px;
+
+            color: #9ca3af;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 900px) {
+
+            .container-main {
+
+                padding: 15px;
+            }
+
+            .navbar {
+
+                padding: 15px;
+            }
+
+            .navbar-title {
+
+                font-size: 20px;
+            }
 
         }
 
@@ -195,13 +410,17 @@
 <body>
 
 
-<!-- ==================================================
-     NAVBAR
-=================================================== -->
+<!-- =================================================
+     HEADER
+================================================== -->
 
 <nav class="navbar">
 
-    <div class="d-flex justify-content-between align-items-center">
+    <div
+        class="d-flex
+               justify-content-between
+               align-items-center"
+    >
 
         <div>
 
@@ -211,19 +430,31 @@
 
             </div>
 
-            <small>
+            <div class="navbar-subtitle">
 
                 AI-Based Real-Time Surveillance Monitoring
 
-            </small>
+            </div>
+
+            <div
+                id="connectionStatus"
+                class="connection-status"
+            >
+
+                Connecting to Police Server...
+
+            </div>
 
         </div>
 
+
         <div>
 
-            <span class="status">
+            <span class="system-status">
 
-                ● SYSTEM ONLINE
+                <span class="status-dot"></span>
+
+                LIVE
 
             </span>
 
@@ -234,265 +465,84 @@
 </nav>
 
 
-<!-- ==================================================
+<!-- =================================================
      MAIN
-=================================================== -->
+================================================== -->
 
 <div class="container-main">
 
 
-    <!-- ==================================================
-         LATEST INCIDENT
-    =================================================== -->
+    <!-- =============================================
+         ALERT
+    ============================================== -->
 
-    <div class="alert-card">
+    <div
+        id="alertCard"
+        class="alert-card"
+    >
 
+        <div class="alert-title">
 
-        {% if latest_incident %}
+            🚨 POLICE SURVEILLANCE SYSTEM
 
+        </div>
 
-            <div class="alert-title">
+        <div
+            id="alertMessage"
+            class="alert-message"
+        >
 
-                🚨 ANOMALY DETECTED
+            Waiting for incoming incidents...
 
-            </div>
-
-
-            <p class="text-secondary">
-
-                New surveillance incident received.
-
-            </p>
-
-
-            <!-- INFORMATION -->
-
-            <div class="row incident-info">
-
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="info-label">
-
-                        INCIDENT TYPE
-
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ latest_incident["incident_type"] }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="info-label">
-
-                        PERSON ID
-
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ latest_incident["person_id"] }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="info-label">
-
-                        CAMERA ID
-
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ latest_incident["camera_id"] }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="info-label">
-
-                        STATUS
-
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ latest_incident["status"] }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="info-label">
-
-                        CONFIDENCE
-
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ latest_incident["confidence"] }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-3 mb-3">
-
-                    <div class="info-label">
-
-                        FUSION SCORE
-
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ latest_incident["fusion_score"] }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="col-md-6 mb-3">
-
-                    <div class="info-label">
-
-                        TIMESTAMP
-
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ latest_incident["timestamp"] }}
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- ==================================================
-                 SNAPSHOT
-            =================================================== -->
-
-            <div class="snapshot-container">
-
-                <h5>
-
-                    📸 Incident Snapshot
-
-                </h5>
-
-
-                {% if latest_incident["snapshot"] %}
-
-
-                    {% set snapshot_path =
-                        latest_incident["snapshot"]
-                        .replace("\\", "/")
-                    %}
-
-                    {% set snapshot_filename =
-                        snapshot_path.split("/")[-1]
-                    %}
-
-
-                    <img
-
-                        src="{{ url_for(
-                            'snapshot',
-                            filename=snapshot_filename
-                        ) }}"
-
-                        class="snapshot"
-
-                        alt="Incident Snapshot"
-
-                    >
-
-
-                {% else %}
-
-
-                    <div class="no-image">
-
-                        No snapshot received.
-
-                    </div>
-
-
-                {% endif %}
-
-            </div>
-
-
-        {% else %}
-
-
-            <div class="text-center">
-
-                <h2>
-
-                    🟢 No Active Incidents
-
-                </h2>
-
-                <p class="text-secondary">
-
-                    Police workstation is waiting for
-                    incoming surveillance alerts.
-
-                </p>
-
-            </div>
-
-
-        {% endif %}
-
+        </div>
 
     </div>
 
 
-    <!-- ==================================================
+    <!-- =============================================
+         LATEST INCIDENT
+    ============================================== -->
+
+    <div class="alert-card">
+
+        <div class="alert-title">
+
+            🚨 LATEST INCIDENT
+
+        </div>
+
+
+        <div
+            id="latestIncident"
+        >
+
+            <div class="empty">
+
+                Waiting for incidents...
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
          RECENT INCIDENTS
-    =================================================== -->
+    ============================================== -->
 
     <div class="recent-card">
 
-
-        <h3>
+        <div class="recent-title">
 
             📋 Recent Incidents
 
-        </h3>
+        </div>
 
 
-        <div class="table-responsive">
+        <div class="table-container">
 
-
-            <table class="table table-dark table-hover">
-
+            <table>
 
                 <thead>
 
@@ -519,102 +569,26 @@
                 </thead>
 
 
-                <tbody>
-
-
-                {% for incident in recent_incidents %}
-
+                <tbody id="incidentTable">
 
                     <tr>
 
-                        <td>
+                        <td
+                            colspan="8"
+                            class="empty"
+                        >
 
-                            {{ incident["id"] }}
-
-                        </td>
-
-
-                        <td>
-
-                            {{ incident["incident_type"] }}
+                            Waiting for incidents...
 
                         </td>
-
-
-                        <td>
-
-                            {{ incident["person_id"] }}
-
-                        </td>
-
-
-                        <td>
-
-                            {{ incident["camera_id"] }}
-
-                        </td>
-
-
-                        <td>
-
-                            {{ incident["confidence"] }}
-
-                        </td>
-
-
-                        <td>
-
-                            {{ incident["fusion_score"] }}
-
-                        </td>
-
-
-                        <td>
-
-                            {{ incident["timestamp"] }}
-
-                        </td>
-
-
-                        <td>
-
-
-                            {% if incident["status"] == "NEW" %}
-
-                                <span class="badge badge-new">
-
-                                    NEW
-
-                                </span>
-
-                            {% else %}
-
-                                <span class="badge badge-normal">
-
-                                    {{ incident["status"] }}
-
-                                </span>
-
-                            {% endif %}
-
-
-                        </td>
-
 
                     </tr>
 
-
-                {% endfor %}
-
-
                 </tbody>
-
 
             </table>
 
-
         </div>
-
 
     </div>
 
@@ -622,17 +596,687 @@
 </div>
 
 
-<!-- ==================================================
-     AUTO REFRESH
-=================================================== -->
+<!-- =================================================
+     JAVASCRIPT
+================================================== -->
 
 <script>
 
-    setTimeout(function() {
+    let lastIncidentId = null;
 
-        window.location.reload();
 
-    }, 3000);
+    // =================================================
+    // ESCAPE HTML
+    // =================================================
+
+    function escapeHtml(value) {
+
+        if (value === null ||
+            value === undefined) {
+
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    // =================================================
+    // FORMAT NUMBER
+    // =================================================
+
+    function formatNumber(value) {
+
+        const number =
+            Number(value);
+
+        if (
+            Number.isNaN(number)
+        ) {
+
+            return "0";
+        }
+
+        return number.toFixed(4);
+    }
+
+
+    // =================================================
+    // UPDATE LATEST INCIDENT
+    // =================================================
+
+    function updateLatestIncident(incident) {
+
+        const container =
+            document.getElementById(
+                "latestIncident"
+            );
+
+
+        if (!incident) {
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    🟢 No incidents received yet.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        let snapshotHtml = `
+
+            <div class="no-image">
+
+                No snapshot received.
+
+            </div>
+
+        `;
+
+
+        if (incident.snapshot) {
+
+            const path =
+                String(incident.snapshot)
+                    .replace(/\\/g, "/");
+
+
+            const filename =
+                path.split("/").pop();
+
+
+            snapshotHtml = `
+
+                <div class="snapshot-container">
+
+                    <h5>
+
+                        📸 Incident Snapshot
+
+                    </h5>
+
+                    <img
+
+                        src="/snapshots/${encodeURIComponent(filename)}?t=${Date.now()}"
+
+                        class="snapshot"
+
+                        alt="Incident Snapshot"
+
+                    >
+
+                </div>
+
+            `;
+        }
+
+
+        container.innerHTML = `
+
+            <div class="incident-info">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+
+                                Incident Type
+
+                            </div>
+
+                            <div class="info-value">
+
+                                ${escapeHtml(
+                                    incident.incident_type
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+
+                                Person ID
+
+                            </div>
+
+                            <div class="info-value">
+
+                                ${escapeHtml(
+                                    incident.person_id
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+
+                                Camera ID
+
+                            </div>
+
+                            <div class="info-value">
+
+                                ${escapeHtml(
+                                    incident.camera_id
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+
+                                Status
+
+                            </div>
+
+                            <div class="info-value">
+
+                                ${escapeHtml(
+                                    incident.status
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+
+                                Confidence
+
+                            </div>
+
+                            <div class="info-value">
+
+                                ${formatNumber(
+                                    incident.confidence
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+
+                                Fusion Score
+
+                            </div>
+
+                            <div class="info-value">
+
+                                ${formatNumber(
+                                    incident.fusion_score
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <div class="info-box">
+
+                            <div class="info-label">
+
+                                Timestamp
+
+                            </div>
+
+                            <div class="info-value">
+
+                                ${escapeHtml(
+                                    incident.timestamp
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                ${snapshotHtml}
+
+            </div>
+
+        `;
+    }
+
+
+    // =================================================
+    // UPDATE RECENT INCIDENTS
+    // =================================================
+
+    function updateRecentIncidents(incidents) {
+
+        const table =
+            document.getElementById(
+                "incidentTable"
+            );
+
+
+        if (!incidents ||
+            incidents.length === 0) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        class="empty"
+                    >
+
+                        No incidents recorded.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+        }
+
+
+        table.innerHTML =
+            incidents.map(
+                incident => `
+
+                    <tr>
+
+                        <td>
+
+                            ${escapeHtml(
+                                incident.id
+                            )}
+
+                        </td>
+
+                        <td>
+
+                            ${escapeHtml(
+                                incident.incident_type
+                            )}
+
+                        </td>
+
+                        <td>
+
+                            ${escapeHtml(
+                                incident.person_id
+                            )}
+
+                        </td>
+
+                        <td>
+
+                            ${escapeHtml(
+                                incident.camera_id
+                            )}
+
+                        </td>
+
+                        <td>
+
+                            ${formatNumber(
+                                incident.confidence
+                            )}
+
+                        </td>
+
+                        <td>
+
+                            ${formatNumber(
+                                incident.fusion_score
+                            )}
+
+                        </td>
+
+                        <td>
+
+                            ${escapeHtml(
+                                incident.timestamp
+                            )}
+
+                        </td>
+
+                        <td>
+
+                            ${
+                                incident.status === "NEW"
+
+                                ?
+
+                                `<span class="badge badge-new">
+                                    NEW
+                                 </span>`
+
+                                :
+
+                                `<span class="badge badge-normal">
+                                    ${escapeHtml(
+                                        incident.status
+                                    )}
+                                 </span>`
+                            }
+
+                        </td>
+
+                    </tr>
+
+                `
+            )
+            .join("");
+    }
+
+
+    // =================================================
+    // SHOW NEW INCIDENT ALERT
+    // =================================================
+
+    function showNewIncidentAlert(incident) {
+
+        const alertCard =
+            document.getElementById(
+                "alertCard"
+            );
+
+
+        const alertMessage =
+            document.getElementById(
+                "alertMessage"
+            );
+
+
+        alertCard.classList.add(
+            "active"
+        );
+
+
+        alertMessage.innerHTML = `
+
+            🚨 <strong>NEW ANOMALY INCIDENT RECEIVED</strong>
+
+            <br>
+
+            Person ID:
+            <strong>
+                ${escapeHtml(
+                    incident.person_id
+                )}
+            </strong>
+
+            &nbsp; | &nbsp;
+
+            Camera:
+            <strong>
+                ${escapeHtml(
+                    incident.camera_id
+                )}
+            </strong>
+
+            &nbsp; | &nbsp;
+
+            Fusion Score:
+            <strong>
+                ${formatNumber(
+                    incident.fusion_score
+                )}
+            </strong>
+
+        `;
+
+
+        setTimeout(
+            function() {
+
+                alertCard.classList.remove(
+                    "active"
+                );
+
+            },
+            8000
+        );
+    }
+
+
+    // =================================================
+    // LOAD LATEST INCIDENT
+    // =================================================
+
+    async function loadLatestIncident() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/latest",
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Latest API returned HTTP " +
+                    response.status
+                );
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                throw new Error(
+                    "Latest API failed"
+                );
+            }
+
+
+            const incident =
+                data.incident;
+
+
+            document.getElementById(
+                "connectionStatus"
+            ).textContent =
+                "Police server connected";
+
+
+            if (incident) {
+
+                updateLatestIncident(
+                    incident
+                );
+
+
+                if (
+                    lastIncidentId !== null &&
+                    Number(incident.id) >
+                    Number(lastIncidentId)
+                ) {
+
+                    showNewIncidentAlert(
+                        incident
+                    );
+                }
+
+
+                lastIncidentId =
+                    Number(
+                        incident.id
+                    );
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Latest incident error:",
+                error
+            );
+
+
+            document.getElementById(
+                "connectionStatus"
+            ).textContent =
+                "⚠ Police server connection problem";
+        }
+    }
+
+
+    // =================================================
+    // LOAD RECENT INCIDENTS
+    // =================================================
+
+    async function loadRecentIncidents() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/incidents",
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Incidents API returned HTTP " +
+                    response.status
+                );
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (!data.success) {
+
+                throw new Error(
+                    "Incidents API failed"
+                );
+            }
+
+
+            updateRecentIncidents(
+                data.incidents
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Recent incidents error:",
+                error
+            );
+        }
+    }
+
+
+    // =================================================
+    // LOAD DASHBOARD
+    // =================================================
+
+    async function refreshDashboard() {
+
+        await Promise.all([
+
+            loadLatestIncident(),
+
+            loadRecentIncidents()
+
+        ]);
+
+    }
+
+
+    // =================================================
+    // INITIAL LOAD
+    // =================================================
+
+    refreshDashboard();
+
+
+    // =================================================
+    // LIVE POLLING
+    // =================================================
+
+    setInterval(
+
+        refreshDashboard,
+
+        2000
+
+    );
 
 </script>
 

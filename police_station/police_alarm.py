@@ -9,7 +9,7 @@ is received by the Police Workstation.
 
 import os
 import threading
-from playsound import playsound
+from playsound3 import playsound
 
 
 # =====================================================

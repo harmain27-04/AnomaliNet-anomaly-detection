@@ -165,7 +165,15 @@ def on_message(
         # -------------------------------------------------
         # Police Alarm
         # -------------------------------------------------
-        
+        #if str(incident_type).strip().upper() == "ANOMALY":
+
+          #  print()
+           # print("=" * 70)
+            #print("🚨🚨🚨 ANOMALY INCIDENT RECEIVED 🚨🚨🚨")
+            #print("=" * 70)
+            #print("Triggering Police Workstation Alarm...")
+
+            #trigger_police_alarm()
         camera_id = incident.get(
             "camera_id",
             "UNKNOWN"

@@ -1,503 +1,299 @@
 /* ==========================================================
-                ANOMALINET RESULT PAGE
-                    PART 1
+                    ANOMALINET RESULT PAGE
 ========================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-*{
 
-    margin:0;
+/* ==========================================================
+                        GLOBAL
+========================================================== */
 
-    padding:0;
-
-    box-sizing:border-box;
-
-    font-family:'Inter',sans-serif;
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
-body{
-
-    background:#F6FAFD;
-
-    color:#374151;
-
+body {
+    background: #F6FAFD;
+    color: #374151;
 }
+
 
 /* ==========================================================
                         NAVBAR
 ========================================================== */
 
-.navbar{
-
-    background:linear-gradient(
+.navbar {
+    background: linear-gradient(
         135deg,
         #B8F2E6,
         #CDB4DB
     );
 
-    padding:18px 40px;
+    padding: 18px 40px;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 }
 
-.navbar-brand{
-
-    font-size:28px;
-
-    font-weight:700;
-
-    color:#374151 !important;
-
+.navbar-brand {
+    font-size: 28px;
+    font-weight: 700;
+    color: #374151 !important;
 }
 
-.navbar-brand i{
-
-    margin-right:10px;
-
+.navbar-brand i {
+    margin-right: 10px;
 }
 
-.user-box{
+.user-box {
+    background: white;
 
-    background:white;
+    padding: 12px 22px;
 
-    padding:12px 22px;
+    border-radius: 50px;
 
-    border-radius:50px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .08);
 
-    box-shadow:0 8px 18px rgba(0,0,0,.08);
-
-    font-weight:600;
-
+    font-weight: 600;
 }
 
-.user-box i{
-
-    margin-right:8px;
-
-    color:#7C3AED;
-
+.user-box i {
+    margin-right: 8px;
+    color: #7C3AED;
 }
+
 
 /* ==========================================================
                     PAGE HEADER
 ========================================================== */
 
-.page-title{
-
-    text-align:center;
-
-    margin-bottom:35px;
-
+.page-title {
+    text-align: center;
+    margin-bottom: 35px;
 }
 
-.page-title h2{
-
-    font-size:40px;
-
-    font-weight:700;
-
-    color:#2C3E50;
-
+.page-title h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #2C3E50;
 }
 
-.page-title p{
-
-    color:#6B7280;
-
-    font-size:18px;
-
-    margin-top:10px;
-
+.page-title p {
+    color: #6B7280;
+    font-size: 18px;
+    margin-top: 10px;
 }
+
 
 /* ==========================================================
                     GLASS CARD
 ========================================================== */
 
-.glass-card{
+.glass-card {
+    background: rgba(255, 255, 255, .88);
 
-    background:rgba(255,255,255,.82);
+    backdrop-filter: blur(18px);
 
-    backdrop-filter:blur(18px);
+    border-radius: 22px;
 
-    border-radius:22px;
+    padding: 30px;
 
-    padding:30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
 
-    box-shadow:0 15px 35px rgba(0,0,0,.08);
+    border: 1px solid rgba(255, 255, 255, .35);
 
-    margin-bottom:30px;
+    margin-bottom: 30px;
 
-    transition:.35s;
-
+    animation: fadeUp .7s ease;
 }
 
-.glass-card:hover{
-
-    transform:translateY(-5px);
-
+.glass-card h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #374151;
 }
 
-.glass-card h3{
-
-    font-size:26px;
-
-    font-weight:700;
-
-    margin-bottom:20px;
-
-    color:#374151;
-
+.glass-card h3 i {
+    color: #7C3AED;
+    margin-right: 10px;
 }
 
-.glass-card h3 i{
-
-    color:#7C3AED;
-
-    margin-right:10px;
-
+.glass-card:hover h3 {
+    color: #7C3AED;
 }
+
 
 /* ==========================================================
                     STATUS CARDS
 ========================================================== */
 
-.status-card{
+.status-card {
+    background: white;
 
-    background:white;
+    border-radius: 22px;
 
-    border-radius:22px;
+    padding: 30px;
 
-    padding:30px;
+    text-align: center;
 
-    text-align:center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    border: 1px solid rgba(255, 255, 255, .40);
 
-    transition:.35s;
+    transition: .35s;
 
-    height:210px;
+    height: 210px;
 
+    animation: fadeUp .6s ease;
 }
 
-.status-card:hover{
-
-    transform:translateY(-8px);
-
+.status-card:hover {
+    transform: translateY(-8px);
 }
 
-.status-card i{
-
-    font-size:42px;
-
-    margin-bottom:18px;
-
+.status-card i {
+    font-size: 42px;
+    margin-bottom: 18px;
+    transition: .35s;
 }
 
-.status-card h5{
-
-    margin-bottom:15px;
-
-    color:#6B7280;
-
-    font-size:18px;
-
+.status-card:hover i {
+    transform: rotate(8deg) scale(1.15);
 }
 
-.status-card h3{
+.status-card h5 {
+    margin-bottom: 15px;
 
-    font-size:28px;
+    color: #6B7280;
 
-    font-weight:700;
-
+    font-size: 18px;
 }
 
-/* Individual Card Colors */
-
-.success-card{
-
-    border-top:6px solid #4ADE80;
-
+.status-card h3 {
+    font-size: 28px;
+    font-weight: 700;
 }
 
-.success-card i{
 
-    color:#16A34A;
+/* ==========================================================
+                STATUS CARD COLORS
+========================================================== */
 
+.success-card {
+    border-top: 6px solid #4ADE80;
 }
 
-.score-card{
-
-    border-top:6px solid #60A5FA;
-
+.success-card i {
+    color: #16A34A;
 }
 
-.score-card i{
-
-    color:#2563EB;
-
+.score-card {
+    border-top: 6px solid #60A5FA;
 }
 
-.danger-card{
-
-    border-top:6px solid #FB7185;
-
+.score-card i {
+    color: #2563EB;
 }
 
-.danger-card i{
-
-    color:#E11D48;
-
+.danger-card {
+    border-top: 6px solid #FB7185;
 }
 
-.info-card{
-
-    border-top:6px solid #FACC15;
-
+.danger-card i {
+    color: #E11D48;
 }
 
-.info-card i{
-
-    color:#CA8A04;
-
+.info-card {
+    border-top: 6px solid #FACC15;
 }
+
+.info-card i {
+    color: #CA8A04;
+}
+
 
 /* ==========================================================
                     VIDEO PLAYER
 ========================================================== */
 
-.video-container{
 
-    width:100%;
-
-    text-align:center;
-
-    margin-top:20px;
-
-}
-
-.video-container video{
-
-    width:100%;
-
-    max-width:900px;
-
-    border-radius:18px;
-
-    border:5px solid white;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
-
-}
 
 /* ==========================================================
                         TABLE
 ========================================================== */
 
-.table{
-
-    margin-top:15px;
-
+.table {
+    margin-top: 15px;
 }
 
-.table td{
+.table td {
+    padding: 14px;
 
-    padding:14px;
+    border: none;
 
-    border:none;
+    border-bottom: 1px solid #EEF2F7;
 
-    border-bottom:1px solid #EEF2F7;
-
+    vertical-align: middle;
 }
 
-.table td:first-child{
-
-    font-weight:600;
-
-    color:#4B5563;
-
+.table td:first-child {
+    font-weight: 600;
+    color: #4B5563;
 }
 
-.table td:last-child{
-
-    color:#374151;
-
+.table td:last-child {
+    color: #374151;
 }
-
-/* ==========================================================
-                    BUTTONS
-========================================================== */
-
-.btn{
-
-    border:none;
-
-    border-radius:16px;
-
-    padding:14px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-.btn-dashboard{
-
-    background:#A8D8EA;
-
-    color:#1E3A8A;
-
-}
-
-.btn-dashboard:hover{
-
-    background:#90CCE3;
-
-    color:white;
-
-}
-
-.btn-upload-again{
-
-    background:#B8F2E6;
-
-    color:#065F46;
-
-}
-
-.btn-upload-again:hover{
-
-    background:#8FD3C8;
-
-    color:white;
-
-}
-
-.btn-history{
-
-    background:#FBCFE8;
-
-    color:#9D174D;
-
-}
-
-.btn-history:hover{
-
-    background:#F9A8D4;
-
-    color:white;
-
-}
-
-/* ==========================================================
-                    HOVER EFFECTS
-========================================================== */
-
-.status-card:hover i{
-
-    transform:scale(1.12);
-
-    transition:.35s;
-
-}
-
-.glass-card:hover h3{
-
-    color:#7C3AED;
-
-}
-/* ==========================================================
-                ANOMALINET RESULT PAGE
-                    PART 2
-========================================================== */
 
 
 /* ==========================================================
-                    SNAPSHOT GALLERY
+                SNAPSHOT STATUS
 ========================================================== */
 
-.snapshot-card{
+/*
+    We no longer display a large snapshot gallery.
 
-    position:relative;
+    The result page only needs to tell the user whether
+    an incident snapshot was captured/saved.
+*/
 
-    overflow:hidden;
+.snapshot-status {
+    display: flex;
 
-    border-radius:20px;
+    align-items: center;
 
-    background:white;
+    gap: 16px;
 
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    padding: 22px;
 
-    transition:.4s;
+    background: #F8FAFC;
 
+    border: 1px solid #E5E7EB;
+
+    border-radius: 16px;
+
+    color: #374151;
+
+    font-weight: 600;
 }
 
-.snapshot-card:hover{
-
-    transform:translateY(-8px);
-
+.snapshot-status i {
+    font-size: 30px;
+    color: #7C3AED;
 }
 
-.snapshot-image{
+.snapshot-status small {
+    display: block;
 
-    width:100%;
+    margin-top: 5px;
 
-    height:260px;
+    color: #6B7280;
 
-    object-fit:cover;
-
-    transition:.5s;
-
-}
-
-.snapshot-card:hover .snapshot-image{
-
-    transform:scale(1.08);
-
-}
-
-.snapshot-overlay{
-
-    position:absolute;
-
-    top:0;
-
-    left:0;
-
-    width:100%;
-
-    height:100%;
-
-    background:rgba(44,62,80,.45);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    opacity:0;
-
-    transition:.4s;
-
-}
-
-.snapshot-overlay i{
-
-    color:white;
-
-    font-size:42px;
-
-}
-
-.snapshot-card:hover .snapshot-overlay{
-
-    opacity:1;
-
+    font-weight: 400;
 }
 
 
@@ -505,50 +301,49 @@ body{
                     METRIC CARDS
 ========================================================== */
 
-.metric-card{
+.metric-card {
+    background: white;
 
-    background:white;
+    border-radius: 18px;
 
-    border-radius:18px;
+    padding: 25px;
 
-    padding:25px;
+    text-align: center;
 
-    text-align:center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    border: 1px solid rgba(255, 255, 255, .35);
 
-    transition:.35s;
+    transition: .35s;
 
-    height:170px;
+    height: 170px;
 
+    animation: fadeUp .9s ease;
 }
 
-.metric-card:hover{
-
-    transform:translateY(-6px);
-
-    background:#F8FDFF;
-
+.metric-card:hover {
+    transform: translateY(-6px);
+    background: #F8FDFF;
 }
 
-.metric-card h5{
+.metric-card h5 {
+    color: #6B7280;
 
-    color:#6B7280;
+    margin-bottom: 18px;
 
-    margin-bottom:18px;
-
-    font-size:18px;
-
+    font-size: 18px;
 }
 
-.metric-card h2{
+.metric-card h2 {
+    font-size: 34px;
 
-    font-size:34px;
+    font-weight: 700;
 
-    font-weight:700;
+    color: #7C3AED;
+}
 
-    color:#7C3AED;
-
+.metric-card:hover h2 {
+    color: #16A34A;
 }
 
 
@@ -556,338 +351,242 @@ body{
                 SYSTEM INFORMATION
 ========================================================== */
 
-.system-list{
-
-    list-style:none;
-
-    padding-left:0;
-
+.system-list {
+    list-style: none;
+    padding-left: 0;
 }
 
-.system-list li{
+.system-list li {
+    padding: 15px;
 
-    padding:15px;
+    margin-bottom: 12px;
 
-    margin-bottom:12px;
+    background: #F9FBFD;
 
-    background:#F9FBFD;
+    border-radius: 14px;
 
-    border-radius:14px;
-
-    transition:.3s;
-
+    transition: .3s;
 }
 
-.system-list li:hover{
+.system-list li:hover {
+    background: #EEF9F7;
 
-    background:#EEF9F7;
-
-    transform:translateX(5px);
-
+    transform: translateX(5px);
 }
 
-.system-list strong{
-
-    color:#374151;
-
+.system-list strong {
+    color: #374151;
 }
 
 
 /* ==========================================================
-                    FOOTER
+                        BUTTONS
 ========================================================== */
 
-.footer{
+.btn {
+    border: none;
 
-    margin-top:60px;
+    border-radius: 16px;
 
-    text-align:center;
+    padding: 14px;
 
-    padding:30px;
+    font-weight: 600;
 
-    color:#6B7280;
-
-    font-size:15px;
-
+    transition: .3s;
 }
 
-.footer hr{
-
-    margin-bottom:25px;
-
+.btn-dashboard {
+    background: #A8D8EA;
+    color: #1E3A8A;
 }
 
-.footer p{
+.btn-dashboard:hover {
+    background: #90CCE3;
+    color: white;
+}
 
-    margin:4px;
+.btn-upload-again {
+    background: #B8F2E6;
+    color: #065F46;
+}
 
+.btn-upload-again:hover {
+    background: #8FD3C8;
+    color: white;
+}
+
+.btn-history {
+    background: #FBCFE8;
+    color: #9D174D;
+}
+
+.btn-history:hover {
+    background: #F9A8D4;
+    color: white;
 }
 
 
 /* ==========================================================
-                ALERT COLORS
+                    ALERT COLORS
 ========================================================== */
 
-.alert{
+.alert {
+    border: none;
 
-    border:none;
+    border-radius: 18px;
 
-    border-radius:18px;
+    padding: 18px;
 
-    padding:18px;
-
-    font-weight:600;
-
+    font-weight: 600;
 }
 
-.alert-info{
-
-    background:#E0F7FA;
-
-    color:#006064;
-
+.alert-info {
+    background: #E0F7FA;
+    color: #006064;
 }
 
 
 /* ==========================================================
-                    SCROLLBAR
+                        FOOTER
 ========================================================== */
 
-::-webkit-scrollbar{
+.footer {
+    margin-top: 60px;
 
-    width:10px;
+    text-align: center;
 
+    padding: 30px;
+
+    color: #6B7280;
+
+    font-size: 15px;
 }
 
-::-webkit-scrollbar-track{
-
-    background:#EDF2F7;
-
+.footer hr {
+    margin-bottom: 25px;
 }
 
-::-webkit-scrollbar-thumb{
-
-    background:#B8F2E6;
-
-    border-radius:25px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-    background:#8FD3C8;
-
+.footer p {
+    margin: 4px;
 }
 
 
 /* ==========================================================
-                    ANIMATIONS
+                        SCROLLBAR
 ========================================================== */
 
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
+::-webkit-scrollbar {
+    width: 10px;
 }
 
-.status-card{
-
-    animation:fadeUp .6s ease;
-
+::-webkit-scrollbar-track {
+    background: #EDF2F7;
 }
 
-.glass-card{
+::-webkit-scrollbar-thumb {
+    background: #B8F2E6;
 
-    animation:fadeUp .8s ease;
-
+    border-radius: 25px;
 }
 
-.metric-card{
-
-    animation:fadeUp 1s ease;
-
-}
-
-.snapshot-card{
-
-    animation:fadeUp 1.2s ease;
-
+::-webkit-scrollbar-thumb:hover {
+    background: #8FD3C8;
 }
 
 
 /* ==========================================================
-                    ICON ANIMATION
+                        ANIMATIONS
 ========================================================== */
 
-.status-card:hover i{
+@keyframes fadeUp {
 
-    transform:rotate(8deg) scale(1.15);
-
-}
-
-.metric-card:hover h2{
-
-    color:#16A34A;
-
-}
-
-
-/* ==========================================================
-                RESPONSIVE
-========================================================== */
-
-@media(max-width:1200px){
-
-    .video-container video{
-
-        width:100%;
-
+    from {
+        opacity: 0;
+        transform: translateY(25px);
     }
 
-}
-
-@media(max-width:992px){
-
-    .page-title h2{
-
-        font-size:34px;
-
-    }
-
-    .status-card{
-
-        margin-bottom:20px;
-
-        height:auto;
-
-    }
-
-}
-
-@media(max-width:768px){
-
-    .glass-card{
-
-        padding:22px;
-
-    }
-
-    .snapshot-image{
-
-        height:220px;
-
-    }
-
-    .metric-card{
-
-        margin-bottom:20px;
-
-    }
-
-    .user-box{
-
-        margin-top:15px;
-
-    }
-
-}
-
-@media(max-width:576px){
-
-    .navbar{
-
-        padding:18px;
-
-    }
-
-    .navbar-brand{
-
-        font-size:22px;
-
-    }
-
-    .page-title h2{
-
-        font-size:28px;
-
-    }
-
-    .page-title p{
-
-        font-size:15px;
-
-    }
-
-    .video-container video{
-
-        border-radius:14px;
-
-    }
-
-    .snapshot-image{
-
-        height:180px;
-
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 
 }
 
 
 /* ==========================================================
-                PREMIUM GLASS EFFECT
+                        RESPONSIVE
 ========================================================== */
 
-.glass-card{
+@media (max-width: 1200px) {
 
-    border:1px solid rgba(255,255,255,.35);
-
-}
-
-.status-card{
-
-    border:1px solid rgba(255,255,255,.40);
+    .video-container video {
+        width: 100%;
+    }
 
 }
 
-.metric-card{
 
-    border:1px solid rgba(255,255,255,.35);
+@media (max-width: 992px) {
 
-}
-.logs-box{
+    .page-title h2 {
+        font-size: 34px;
+    }
 
-background:#101828;
-
-color:#00ff90;
-
-padding:20px;
-
-border-radius:15px;
-
-max-height:350px;
-
-overflow:auto;
-
-font-size:13px;
-
-white-space:pre-wrap;
+    .status-card {
+        margin-bottom: 20px;
+        height: auto;
+    }
 
 }
 
-/* ==========================================================
-                    END
-========================================================== */
+
+@media (max-width: 768px) {
+
+    .glass-card {
+        padding: 22px;
+    }
+
+    .metric-card {
+        margin-bottom: 20px;
+    }
+
+    .user-box {
+        margin-top: 15px;
+    }
+
+    .video-container video {
+        max-height: 450px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .navbar {
+        padding: 18px;
+    }
+
+    .navbar-brand {
+        font-size: 22px;
+    }
+
+    .page-title h2 {
+        font-size: 28px;
+    }
+
+    .page-title p {
+        font-size: 15px;
+    }
+
+    .video-container video {
+        border-radius: 14px;
+        border-width: 3px;
+    }
+
+    .snapshot-status {
+        padding: 18px;
+    }
+
+
+}

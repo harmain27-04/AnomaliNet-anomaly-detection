@@ -1,0 +1,24 @@
+{
+    "success": true,
+    "status": "ANOMALY",
+    "message": "Abnormal activity detected.",
+    "video_path": "processed_videos/output_AsGAgf8U2rk_0.mp4",
+    "video_filename": "output_AsGAgf8U2rk_0.mp4",
+    "timestamp": "2026-08-31 20:57:33",
+    "anomaly_detected": true,
+    "anomaly_count": 7,
+    "confidence": 1.0,
+    "fusion_score": 0.874,
+    "alarm_status": "TRIGGERED",
+    "snapshot_status": "CAPTURED",
+    "snapshot_path": "frontend\\static\\saved_incidents\\20260831_205718_703206.jpg",
+    "incident": {
+        "person_id": 4,
+        "confidence": 0.9997,
+        "fusion_score": 0.7412,
+        "snapshot_path": "frontend\\static\\saved_incidents\\20260831_205718_703206.jpg",
+        "alarm_status": "Triggered",
+        "timestamp": "2026-08-31 20:57:21",
+        "mqtt_sent": true
+    }
+}
