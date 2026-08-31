@@ -193,6 +193,54 @@ def get_latest_incident():
 
 
 # =====================================================
+# GET INCIDENT BY ID
+# =====================================================
+
+def get_incident_by_id(incident_id):
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM incidents
+        WHERE id = ?
+    """, (incident_id,))
+
+    incident = cursor.fetchone()
+
+    connection.close()
+
+    return incident
+
+
+# =====================================================
+# MARK INCIDENT AS VIEWED
+# =====================================================
+
+def mark_incident_viewed(incident_id):
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        UPDATE incidents
+        SET status = 'VIEWED'
+        WHERE id = ?
+    """, (incident_id,))
+
+    connection.commit()
+
+    updated = cursor.rowcount > 0
+
+    connection.close()
+
+    return updated
+
+
+# =====================================================
 # TEST DATABASE
 # =====================================================
 

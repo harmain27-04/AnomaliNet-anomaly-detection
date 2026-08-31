@@ -11,7 +11,8 @@ from flask import (
     Flask,
     render_template,
     jsonify,
-    send_from_directory
+    send_from_directory,
+    request
 )
 
 import sqlite3
@@ -203,7 +204,52 @@ def incidents_api():
         "incidents": incidents
 
     })
+# ======================================================
+# MARK INCIDENT AS VIEWED
+# ======================================================
 
+@app.route(
+    "/api/incidents/<int:incident_id>/view",
+    methods=["POST"]
+)
+def mark_incident_viewed(incident_id):
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        UPDATE incidents
+        SET status = 'VIEWED'
+        WHERE id = ?
+        """,
+        (incident_id,)
+    )
+
+    connection.commit()
+
+    updated = cursor.rowcount > 0
+
+    connection.close()
+
+    if not updated:
+
+        return jsonify({
+
+            "success": False,
+
+            "message": "Incident not found."
+
+        }), 404
+
+    return jsonify({
+
+        "success": True,
+
+        "message": "Incident marked as viewed."
+
+    })
 
 # ======================================================
 # SERVE RECEIVED SNAPSHOTS

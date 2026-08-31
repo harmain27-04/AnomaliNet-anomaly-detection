@@ -342,7 +342,10 @@
 
             color: #fecaca;
         }
-
+        .badge-viewed {
+            background: #14532d;
+            color: #bbf7d0;
+        }
         .badge-normal {
 
             background: #14532d;
@@ -362,6 +365,13 @@
             padding: 50px;
 
             color: #9ca3af;
+        }
+        .incident-row {
+            cursor: pointer;
+        }
+
+        .incident-row:hover {
+            background: #263244;
         }
 
 
@@ -897,6 +907,7 @@
 
         `;
     }
+    
 
 
     // =================================================
@@ -938,15 +949,14 @@
         table.innerHTML =
             incidents.map(
                 incident => `
-
-                    <tr>
-
+                    <tr
+                        class="incident-row"
+                        onclick="openIncident(${incident.id})"
+                    >
                         <td>
-
                             ${escapeHtml(
                                 incident.id
                             )}
-
                         </td>
 
                         <td>
@@ -1010,11 +1020,9 @@
 
                                 :
 
-                                `<span class="badge badge-normal">
-                                    ${escapeHtml(
-                                        incident.status
-                                    )}
-                                 </span>`
+                                `<span class="badge badge-viewed">
+                                    VIEWED
+                                </span>`
                             }
 
                         </td>
@@ -1025,7 +1033,94 @@
             )
             .join("");
     }
+    // =================================================
+    // OPEN INCIDENT
+    // =================================================
 
+    async function openIncident(incidentId) {
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/incidents",
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load incidents"
+                );
+
+            }
+
+            const data =
+                await response.json();
+
+            if (!data.success) {
+
+                throw new Error(
+                    "Incident API failed"
+                );
+
+            }
+
+            const incident =
+                data.incidents.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(incidentId)
+                );
+
+            if (!incident) {
+
+                console.error(
+                    "Incident not found:",
+                    incidentId
+                );
+
+                return;
+
+            }
+
+            // -----------------------------------------
+            // Show selected incident
+            // -----------------------------------------
+
+            updateLatestIncident(
+                incident
+            );
+
+            // -----------------------------------------
+            // Mark as viewed
+            // -----------------------------------------
+
+            await fetch(
+                `/api/incidents/${incidentId}/view`,
+                {
+                    method: "POST"
+                }
+            );
+
+            // -----------------------------------------
+            // Refresh table so status becomes VIEWED
+            // -----------------------------------------
+
+            await loadRecentIncidents();
+
+        }
+        catch (error) {
+
+            console.error(
+                "Open incident error:",
+                error
+            );
+
+        }
+    }
 
     // =================================================
     // SHOW NEW INCIDENT ALERT

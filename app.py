@@ -4,14 +4,12 @@ import webbrowser
 from backend.upload_video import allowed_file
 from backend.detection_service import run_detection
 from backend.database import get_connection
+from database.db_manager import get_all_incidents
 from database.db_manager import (
-
     get_total_incidents,
-
     get_today_incidents,
-
-    get_latest_incident
-
+    get_latest_incident,
+    get_all_incidents
 )
 from flask import send_from_directory
 from flask import (
@@ -386,23 +384,7 @@ def detect_video(filename):
 @login_required
 def history():
 
-    connection = get_connection()
-
-    cursor = connection.cursor()
-
-    cursor.execute("""
-
-    SELECT *
-
-    FROM incidents
-
-    ORDER BY id DESC
-
-    """)
-
-    incidents = cursor.fetchall()
-
-    connection.close()
+    incidents = get_all_incidents()
 
     return render_template(
 
@@ -411,7 +393,6 @@ def history():
         incidents=incidents
 
     )
-
 # ==========================================
 # LOGOUT
 # ==========================================

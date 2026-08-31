@@ -321,7 +321,6 @@ Actions
 </tr>
 
 </thead>
-
 <tbody>
 
 {% for incident in incidents %}
@@ -329,62 +328,70 @@ Actions
 <tr>
 
 <td>
-
-{{ incident[0] }}
-
+{{ incident["id"] }}
 </td>
 
 <td>
-
-{{ incident[1] }}
-
+{{ incident["timestamp"] }}
 </td>
 
 <td>
-
 <span class="badge bg-danger">
-
-{{ incident[2] }}
-
+{{ incident["incident_type"] }}
 </span>
+</td>
 
+<td>
+{{ "%.4f"|format(incident["score"]) }}
 </td>
 
 <td>
 
-{{ incident[3] }}
-
-</td>
-
-<td>
+{% if incident["snapshot_path"] %}
 
 <img
 
-src="{{ url_for('incident_image',
-filename=incident[4].split('/')[-1]) }}"
+src="{{ url_for(
+    'incident_image',
+    filename=incident['snapshot_path'].replace('\\', '/').split('/')[-1]
+) }}"
 
 class="snapshot">
+
+{% else %}
+
+<span>No Snapshot</span>
+
+{% endif %}
 
 </td>
 
 <td>
 
+{% if incident["video_path"] %}
+
 <a
 
-href="{{ url_for('static',
-filename='processed_videos/output.mp4') }}"
+href="{{ url_for(
+    'processed_video',
+    filename=incident['video_path'].replace('\\', '/').split('/')[-1]
+) }}"
 
 class="btn btn-video"
 
 target="_blank">
 
-<i class="fa-solid fa-play">
-
-</i>
+<i class="fa-solid fa-play"></i>
 
 View
 
 </a>
+
+{% else %}
+
+<span>No Video</span>
+
+{% endif %}
 
 </td>
 
@@ -392,25 +399,28 @@ View
 
 <span class="status success">
 
-Completed
+{{ incident["alarm_status"] }}
 
 </span>
 
 </td>
 
 <td>
+
+{% if incident["snapshot_path"] %}
+
 <a
 
 class="btn btn-view"
 
-href="{{ url_for('incident_image',
-filename=incident[4].split('/')[-1]) }}"
+href="{{ url_for(
+    'incident_image',
+    filename=incident['snapshot_path'].replace('\\', '/').split('/')[-1]
+) }}"
 
 target="_blank">
 
-<i class="fa-solid fa-image">
-
-</i>
+<i class="fa-solid fa-image"></i>
 
 </a>
 
@@ -418,30 +428,18 @@ target="_blank">
 
 class="btn btn-download"
 
-href="{{ url_for('incident_image',
-filename=incident[4].split('/')[-1]) }}"
+href="{{ url_for(
+    'incident_image',
+    filename=incident['snapshot_path'].replace('\\', '/').split('/')[-1]
+) }}"
 
 download>
 
-<i class="fa-solid fa-download">
-
-</i>
+<i class="fa-solid fa-download"></i>
 
 </a>
 
-<a
-
-class="btn btn-delete"
-
-href="#"
-
-onclick="return confirm('Delete this incident?')">
-
-<i class="fa-solid fa-trash">
-
-</i>
-
-</a>
+{% endif %}
 
 </td>
 
