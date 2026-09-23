@@ -4,21 +4,21 @@
     "message": "Abnormal activity detected.",
     "video_path": "processed_videos/output_fight.mp4",
     "video_filename": "output_fight.mp4",
-    "timestamp": "2026-08-31 07:38:43",
+    "timestamp": "2026-09-01 11:23:16",
     "anomaly_detected": true,
     "anomaly_count": 13,
     "confidence": 0.9982,
     "fusion_score": 0.9987,
     "alarm_status": "TRIGGERED",
     "snapshot_status": "CAPTURED",
-    "snapshot_path": "frontend\\static\\saved_incidents\\20260831_073726_830390.jpg",
+    "snapshot_path": "frontend\\static\\saved_incidents\\20260901_112220_787061.jpg",
     "incident": {
         "person_id": 1,
         "confidence": 0.9546,
         "fusion_score": 0.9682,
-        "snapshot_path": "frontend\\static\\saved_incidents\\20260831_073726_830390.jpg",
+        "snapshot_path": "frontend\\static\\saved_incidents\\20260901_112220_787061.jpg",
         "alarm_status": "Triggered",
-        "timestamp": "2026-08-31 07:37:37",
+        "timestamp": "2026-09-01 11:22:25",
         "mqtt_sent": true
     }
 }
